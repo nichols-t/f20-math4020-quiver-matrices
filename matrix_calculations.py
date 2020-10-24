@@ -153,6 +153,24 @@ ac_pendulum = {
     "edges": [(0, 1), (2, 1), (3, 1), (3, 2)]
 }
 
+ac_pendulum_2 = {
+    "name": "Acyclic Pendulum",
+    "vertices": range(5),
+    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 0)]
+}
+
+ac_pendulum_3 = {
+    "name": "Acyclic Pendulum",
+    "vertices": range(6),
+    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 2), (5, 2)]
+}
+
+ac_pendulum_4 = {
+    "name": "Acyclic Pendulum",
+    "vertices": range(7),
+    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 2), (5, 2), (6, 3)]
+}
+
 # Variant on A_4
 double_a4 = {
     "name": "A4 with bidirectional edges",
@@ -257,6 +275,53 @@ def B(q):
 
   return b
 
+# Calculate a string representing the characteristic polynomial of a matrix.
+def tex_char_poly(A, var="\\lambda"):
+  """Returns a LaTeX string for the characteristic polynomial of a given matrix
+  A
+
+  Arguments: 
+    A (matrix) - the matrix to calculate the characteristic polynomial of.
+    var (string, optional) - string to use as the variable name.
+
+  Returns:
+    poly_string (string) - the characteristic polynomial in LaTeX form.
+  """
+
+  coeffs = np.poly(A)
+  N = len(coeffs)
+  latex_string = ""
+
+  print(coeffs)
+
+  for i in range(0, N):
+    # Can just round this to integers, since we know it will be.
+    c = int(np.around(coeffs[i]))
+    v_power = var + "^{" + str(N - i - 1) + "}"
+    
+    # Need to handle the constant term differently
+    if (i != N - 1):
+      if (c != 0):
+        # Since we handled the sign of the coefficient in the previous
+        # iteration, ignore it here
+        c = abs(c)
+        # For non-constant terms, omit a coefficient of 1 or -1
+        if (c == 1):
+          c = ""
+        if (i == N - 2):
+          # If power is 1, don't show it.
+          v_power = var
+        # Determine if next character should have pos/neg connector.
+        op = "+" if int(np.around(coeffs[i + 1])) >= 0 else "-"
+        latex_string += str(c) + v_power + " " + op + " "
+    else:
+      if (c != 0):
+        latex_string += str(c)
+
+  # I think if the constant term is 0 we'd have a trailing +; just in case,
+  # remove it before returning.
+  return latex_string.strip("+ ")
+
 # Overlaying roots of unity over the eigenvalues is occasionally illuminating.
 def nth_roots_unity (n):
   """Calculates the nth roots of unity.
@@ -348,18 +413,6 @@ def plot_eigenvals(eigens, ax):
   t = np.linspace(0,2*math.pi,101)
   ax.plot(np.cos(t), np.sin(t), color='#005AB5')
 
-def plot_quiver_graph(q, ax):
-  """Plots the given quiver using NetworkX MultiDiGraph.
-
-  Arguments:
-    q (quiver) - the quiver to plot.
-    ax (axis) - the matplotlib axis to draw on.
-  """
-  G = nx.MultiDiGraph()
-  G.add_edges_from(q["edges"])
-
-  nx.draw_networkx(G, ax=ax)
-
 def plot_quivers_eigenvals(quiver_list):
   """Plots the eigenvalues of A for every quiver in the list and draws the graph next to it.
 
@@ -417,10 +470,11 @@ def get_nums(quiver):
 
   print(to_pmatrix(E(quiver)) + "\n")
   print(to_pmatrix(B(quiver)) + "\n")
+  print(tex_char_poly(B(quiver)) + "\n")
   print(eigens_from_quiver(quiver))
 
   print(mahler_measure_from_eigens(eigens_from_quiver(quiver)))
   plot_quiver_eigenvals(quiver)
 
 # Use this function on whichever quiver you want to graph and get matrices for.
-get_nums(e8)
+get_nums(ac_pendulum_4)

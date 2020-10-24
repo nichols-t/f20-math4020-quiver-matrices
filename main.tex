@@ -194,9 +194,9 @@ repeated. However, we will be considering quivers that do not contain
 \end{definition}
 
 \begin{example}
-    Consider again the quivers in Examples 0.1 and 0.2. Observe that the quiver
-    in example 0.1 does not contain an oriented cycle, as there is no path from
-    any node back to itself. However, the quiver in example 2 contains multiple
+    Consider again the quivers in Examples 1.1 and 1.2. Observe that the quiver
+    in Example 1.1 does not contain an oriented cycle, as there is no path from
+    any node back to itself. However, the quiver in Example 1.2 contains multiple
     oriented cycles; one consists only of the self-loop on 1, while the other
     consists of the edges $(1,2)$ and $(2,1)$.
 \end{example}
@@ -241,7 +241,6 @@ the scope of this paper, but the diagrams themselves will be important, so
 we provide them below.
 
 \begin{definition} \cite{dw}
-
     The \textit{simply laced Dynkin diagrams} are $A_n, D_n, E_6, E_7, $ and
     $E_8$ \cite{dw}. Dynkin diagrams are typically drawn as undirected graphs;
     if we speak of a quiver as being related to a Dynkin diagram, we mean the
@@ -466,7 +465,6 @@ According to professor Derksen, the eigenvalues of $B$ will lie on the unit circ
 We consider the \textit{Mahler Measure} of polynomials to evaluate "closeness" of their roots to the unit circle in the complex plane:
 
 \begin{definition} \cite{m}
-
     Given a polynomial $P(x) \in \mathbb{Z}[x]$ with integer coefficients where $P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$, the \textit{Mahler Measure of P} is defined as
 
     $$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
@@ -482,35 +480,30 @@ For our matrix $B$, we may simplify the equation for Mahler measure slightly:
 
 \begin{remark}
     Since the matrix $B$ has integer coefficients, its characteristic polynomial
-    has integer coefficients, and since the characteristic polynomial has the
-    eigenvalues of $B$ as roots, the leading factor $|a_d|$ will always be 1.
+    has integer coefficients, and since the characteristic polynomial is monic
+    by definition, the leading factor $|a_d|$ will always be 1.
     This means that
     $$M(B) = \Pi_{k=1}^{n}\max\{1, |\lambda_k|\}$$
 \end{remark}
 
-
-Observe that the Mahler Measure of a matrix is very similar to the determinant
+We can see immediately that $M(B) \geq 1$. Additionaly, observe that the Mahler Measure of a matrix is very similar to the determinant
 of that matrix, since $\det(B)$ is equal to the product of all eigenvalues of
 $B$. Knowing this, we can compare them:
 \begin{proposition}
     For any matrix $B$ with integer entries, $\det(B) \leq M(B)$.
 
     \begin{proof}
-        Suppose an $n$x$n$ matrix $B$ has eigenvalues $\lambda_1, \dots
+        Suppose an $n \times n$ matrix $B$ has eigenvalues $\lambda_1, \dots
             \lambda_n$. Then $\det(B) = \lambda_1 \cdots \lambda_n$, so
         $|\det(b)| = |\lambda_1 \cdots \lambda_n| = |\lambda_1| \dots
-            |\lambda_n|$. But since $M(B) = |\max\{1, \lambda_1\}| \dots
-            |\max\{1, \lambda_n\}|$ and for any $\lambda_i$, $\lambda_i \leq
-            \max\{1, \lambda_i\}$, it follows that $|\det(B)| \leq |M(B)|$.
-
-        However, Mahler measure is defined to be a positive real number, and $B$
-        has integer entries, so $\det(B) \in \mathbb{Z}$. Therefore we can also
-        say that $\det(B) \leq M(B)$.
+            |\lambda_n|$. But since $$M(B) = |\max\{1, |\lambda_1|\}| \dots
+            |\max\{1, |\lambda_n|\}|$$ and for any $\lambda_i$, $\|\lambda_i| \leq
+            \max\{1, |\lambda_i|\}$, it follows that $|\det(B)| \leq |M(B)|$.
     \end{proof}
 \end{proposition}
 
 \begin{example}
-    Consider the quiver $A_4$ given by
+    Consider the quiver given by
     $$                \begin{tikzpicture}[> = stealth, % arrow head style
                 % shorten > = 1pt, % don't touch arrow head to node
                 auto, node distance = 7mm, % distance between nodes
@@ -580,14 +573,14 @@ contain any oriented cycles.
 \end{question}
 
 This ties directly into \textit{Lehmer's Conjecture} or \textit{Lehmer's
-    Question}:
+    Question} \cite{m}:
 
 \begin{question} Does there exist some $C > 1$ such that for every polynomial
-    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$ \cite{m}?
+    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
 \end{question}
 Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $P(x) =
-    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$ \cite{m}. Our approach
-will use the properties of $E$ to derive properties of $B$ and $B$'s
+    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}. Our approach
+will use the properties of the Euler Matrix $E$ to derive properties of $B$ and $B$'s
 eigenvalues. Currently, three questions are of particular interest:
 
 \begin{question}
@@ -598,8 +591,119 @@ eigenvalues. Currently, three questions are of particular interest:
 
 \begin{question}
     Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
-        (Q')$?
+        M(Q')$?
 \end{question}
+
+We consider an example given by adding one vertex and edge to a small quiver in the
+table below:
+
+\setlength\LTleft{-1.25in} \setlength\LTright{-1in}
+\tiny
+\begin{longtable}[H]{|c|c|c|c|}
+    \hline
+    \rule{0pt}{3ex}\centered{Graph} & \centered{$B = -E^{T} E^{-1}$} &
+    \centered{Characteristic Polynomial of $B$} & $M(B)$
+    \\
+    \hline
+    % "Pendulum" example with sequence of subquivers
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {};
+
+            \path[->] (1) edge (2); \path[->] (4) edge (2); \path[->] (3) edge
+            (2); \path[->] (4) edge (3); \end{tikzpicture}}   &
+    \centered{$\begin{pmatrix} -1 & -1 & 0 & 0 & \\ 1 & 3 & 2 & 1 & \\ 0
+                   & 1  & 0 & 1 & \\ 0 & -2 & -1 & -1 & \\
+            \end{pmatrix}$} &
+    \centered{$\lambda^{4} - \lambda^{3} - 3\lambda^{2} - \lambda + 1$}
+    & \centered{2.3692054071} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
+            {};
+
+            \path[->] (1) edge (2); \path[->] (4) edge (2); \path[->] (3) edge
+            (2); \path[->] (4) edge (3); \path[->] (5) edge (1);
+        \end{tikzpicture}}   & \centered{$\begin{pmatrix} 0  & 0  & 0 & 0 & 1
+                   &                \\ 1 & 3 & 2 & 1 & 0 & \\ 0 & 1 & 0 & 1 & 0 & \\ 0 & -2 &
+                -1 & -1 & 0 &       \\ -1 & -1 & 0 & 0 & -1 & \\
+            \end{pmatrix}$} &
+    \centered{$\lambda^{5} - \lambda^{4} - 3\lambda^{3} - 3\lambda^{2} - \lambda + 1$}
+    & \centered{2.618033988770564} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
+            {}; \node (6) [right of=3] {};
+
+            \path[->] (1) edge (2); \path[->] (4) edge (2); \path[->] (3) edge
+            (2); \path[->] (4) edge (3); \path[->] (5) edge (1); \path[->] (6)
+            edge (3);\end{tikzpicture}}   & \centered{$\begin{pmatrix} -1 & -1 &
+                0  & 0  & 0  & 0 & \\ 1 & 3 & 2 & 1 & 0 & 0 & \\ 0 & 3 & 2 & 1 & 1 & 1
+                   &               \\ 0 & -2 & -1 & -1 & 0 & 0  & \\ 0 & -1 & -1
+                   & 0  & -1 & 0 & \\ 0 & -1 & -1 & 0 & 0 & -1 & \\
+            \end{pmatrix}$} &
+    \centered{$\lambda^{6} - \lambda^{5} - 8\lambda^{4} - 12\lambda^{3} - 8\lambda^{2} - \lambda + 1$}
+    & \centered{3.9386909420922684} \\
+    \hline
+
+
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
+            {}; \node (6) [right of=3] {}; \node (7) [right of=4] {};
+
+            \path[->] (1) edge (2); \path[->] (4) edge (2); \path[->] (3) edge
+            (2); \path[->] (4) edge (3); \path[->] (5) edge (1); \path[->] (6)
+            edge (3); \path[->] (7) edge (4); \end{tikzpicture}}   &
+    \centered{$\begin{pmatrix} -1 & -1 & 0 & 0 & 0 & 0 & 0 &
+                \\ 1 & 3 & 2 & 1 & 0 & 0 & 0 & \\ 0 & 3 & 2 & 1 & 1 & 1 & 0 & \\ 0 &
+                0  & 0  & 0 & 0 & 0 & 1 &     \\ 0 & -1 & -1 & 0 & -1 & 0 & 0 &
+                \\ 0 & -1 & -1 & 0 & 0 & -1 & 0  & \\ 0 & -2 & -1 & -1 & 0 & 0 & -1 & \\
+            \end{pmatrix}$} &
+    \centered{$\lambda^{7} - \lambda^{6} - 10\lambda^{5} - 20\lambda^{4} - 20\lambda^{3} - 10\lambda^{2} - \lambda + 1$}
+    & \centered{4.478261163009756} \\
+    \hline
+
+    \caption{"Pendulum" quiver sequence and characteristic polynomials of $B$}
+    \label{tab:ade}
+\end{longtable}
+\normalsize
 
 \begin{question}
     Does there exist a set of quivers $F = \{F_1, F_2, \dots F_m\}$ such that
@@ -620,15 +724,15 @@ Lehmer first introduced his question in the 1933 paper \textit{Factorization of
     Certain Cyclotomic Functions} \cite{l}. The initial paper was motivated by
 an approach for finding large primes \cite{ln}. A lemma of Kronecker implies
 that if $M(P) = 1$, then $P$ is a product of powers of $x$ and cyclotomic
-polynomials \cite{ln}.
+polynomials; see \cite{ln}.
 
 Some partial results bounding Mahler measure have been established. Breusch
 proved in 1951 that a monic, irreducible, and nonreciprocal polynomial $P$ then
 $$M(P) \geq 1.324717\dots$$ which is the real root of $x^3 - x - 1$ \cite{ln}.
 Later, in 1979, Dobrowolski showed that for a monic, irreducible, and
 non-cyclotomic $P$,
-$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$
-\cite{ln}.
+$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$;
+see \cite{ln}.
 
 Several computational searches have been carried out in addition to the above
 approaches. None have yielded a counterexample to Lehmer's question \cite{m}.
@@ -637,7 +741,7 @@ Mahler measure less than 1.3; while the specific algorithm used applied only to
 even degrees, he was able to find 48 such polynomials of degree 22 and 46 of
 degree 24 \cite{m}. He was additionally able to use several other algorithms to
 extend the search calculations to more degrees, and was able to find a limit
-point for measures near 1.309 \cite{m}.
+point for measures near 1.309; see \cite{m}.
 
 For more information on the work around Lehmer's question, see the cited works
 \textit{Mahler Measure of Polynomials} and \textit{Polynomials with Small Mahler
@@ -1038,8 +1142,7 @@ We can also start to bound the entries of $E^{-1}$ based on facts about triangul
         of $E^T$ are also 1. Since we know that $E$ is triangular,
         we know that $E^{-1}$ is also triangular, and since we know that
         $\det E^{-1} = 1$, the diagonal entries of $E^{-1}$ must have product 1.
-        Furthermore, since $E$ is defined as having integer entries and has 
-        determinant 1, $E^{-1}$ has integer entries, which means that the diagonal
+        Furthermore, since $E$ has integer entries and determinant 1, $E^{-1}$ has integer entries, which means that the diagonal
         values of $E^{-1}$ are $\pm 1$. 
     \end{proof}
 \end{proposition}
@@ -1068,6 +1171,8 @@ We can also start to bound the entries of $E^{-1}$ based on facts about triangul
 
 This section contains the code used to generate matrices and eigenvalue plots.
 
+% Use small text for code because it formats better
+\tiny
 \lstinputlisting[language=Python]{matrix_calculations.py}
 
 \end{document}
