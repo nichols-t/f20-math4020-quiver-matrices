@@ -224,6 +224,18 @@ ac_pendulum_2_U_ac_pendulum = {
   "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (3, 5), (5, 6), (6, 7), (5, 7)]
 }
 
+tri = {
+  "name": "Tri",
+  "vertices": range(3),
+  "edges": [(0, 1) , (1, 2), (0, 2)]
+}
+
+quad = {
+  "name": "Quad",
+  "vertices": range(4),
+  "edges": [(0, 1) , (1, 2), (0, 2), (0, 4)]
+}
+
 ############################################################
 # FUNCTIONS
 # These functions do a bunch of calculations. See each 
@@ -495,4 +507,4 @@ def get_nums(quiver):
   plot_quiver_eigenvals(quiver)
 
 # Use this function on whichever quiver you want to graph and get matrices for.
-get_nums(ac_pendulum_2_U_d4)
+get_nums(ac_pendulum_4)
