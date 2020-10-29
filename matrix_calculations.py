@@ -150,25 +150,25 @@ ac_4cycle = {
 ac_pendulum = {
     "name": "Acyclic Pendulum",
     "vertices": range(4),
-    "edges": [(0, 1), (2, 1), (3, 1), (3, 2)]
+    "edges": [(0, 1), (1, 2), (1, 3), (3, 2)]
 }
 
 ac_pendulum_2 = {
     "name": "Acyclic Pendulum",
     "vertices": range(5),
-    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 0)]
+    "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4)]
 }
 
 ac_pendulum_3 = {
     "name": "Acyclic Pendulum",
     "vertices": range(6),
-    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 2), (5, 2)]
+    "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (4, 5)]
 }
 
 ac_pendulum_4 = {
     "name": "Acyclic Pendulum",
     "vertices": range(7),
-    "edges": [(0, 1), (2, 1), (3, 1), (3, 2), (4, 2), (5, 2), (6, 3)]
+    "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (4, 5), (3, 6)]
 }
 
 # Variant on A_4
@@ -204,6 +204,24 @@ a7_ext_ac = {
     "name": "A_7 Extended with Acyclic Orientation",
     "vertices": range(8),
     "edges": [(0, 1), (1, 2), (2, 3), (3, 4), (4, 5), (5, 6), (6, 7), (0, 7)]
+}
+
+ac_pendulum_2_U_a2 = {
+  "name": "Pendulum graphs union",
+  "vertices": range(7),
+  "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (3, 5), (5, 6)]
+}
+
+ac_pendulum_2_U_d4 = {
+  "name": "Pendulum graphs union",
+  "vertices": range(8),
+  "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (3, 5), (5, 6), (5, 7)]
+}
+
+ac_pendulum_2_U_ac_pendulum = {
+  "name": "Pendulum graphs union",
+  "vertices": range(8),
+  "edges": [(0, 1), (1, 2), (2, 3), (2, 4), (3, 4), (3, 5), (5, 6), (6, 7), (5, 7)]
 }
 
 ############################################################
@@ -468,7 +486,7 @@ def get_nums(quiver):
   the Mahler measure of the quiver and a plot of the eigenvalues of B.
   """
 
-  print(to_pmatrix(E(quiver)) + "\n")
+  # print(to_pmatrix(E(quiver)) + "\n")
   print(to_pmatrix(B(quiver)) + "\n")
   print(tex_char_poly(B(quiver)) + "\n")
   print(eigens_from_quiver(quiver))
@@ -477,4 +495,4 @@ def get_nums(quiver):
   plot_quiver_eigenvals(quiver)
 
 # Use this function on whichever quiver you want to graph and get matrices for.
-get_nums(ac_pendulum_4)
+get_nums(ac_pendulum_2_U_d4)
