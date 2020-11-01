@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter
 import math
 import networkx as nx
+import sys
 
 # This file contains source code for explorations of Ausland-Reiter transform matrices B for small quviers.
 # Example quivers are defined first, with functions to perform the necessary calculations following.
@@ -318,22 +319,24 @@ def tex_char_poly(A, var="\\lambda"):
     poly_string (string) - the characteristic polynomial in LaTeX form.
   """
 
-  coeffs = np.poly(A)
+  coeffs = [int(np.around(x, MAX_DEC)) for x in np.poly(A)]
   N = len(coeffs)
   latex_string = ""
 
-  print(coeffs)
-
   for i in range(0, N):
     # Can just round this to integers, since we know it will be.
-    c = int(np.around(coeffs[i]))
+    c = coeffs[i]
     v_power = var + "^{" + str(N - i - 1) + "}"
     
+    # Set the sign for th next term. We do this even if this term will
+    # not be displayed.
+    op = "+" if i != 0 else ""
+    if (c < 0):
+        op = "-"
     # Need to handle the constant term differently
     if (i != N - 1):
       if (c != 0):
-        # Since we handled the sign of the coefficient in the previous
-        # iteration, ignore it here
+        # Sign is handled, so take absolute value of c
         c = abs(c)
         # For non-constant terms, omit a coefficient of 1 or -1
         if (c == 1):
@@ -342,15 +345,14 @@ def tex_char_poly(A, var="\\lambda"):
           # If power is 1, don't show it.
           v_power = var
         # Determine if next character should have pos/neg connector.
-        op = "+" if int(np.around(coeffs[i + 1])) >= 0 else "-"
-        latex_string += str(c) + v_power + " " + op + " "
+        latex_string += op + " " + str(c) + v_power + " "
     else:
       if (c != 0):
-        latex_string += str(c)
+        latex_string += op + " " + str(c)
 
   # I think if the constant term is 0 we'd have a trailing +; just in case,
   # remove it before returning.
-  return latex_string.strip("+ ")
+  return latex_string.strip("+ -")
 
 # Overlaying roots of unity over the eigenvalues is occasionally illuminating.
 def nth_roots_unity (n):
@@ -492,7 +494,7 @@ def to_pmatrix(mat):
   return bmat
 
 # This is sort of the "final" function that will display everything nicely. 
-def get_nums(quiver):
+def get_nums(quiver,  var="\\lambda"):
   """Prints some information for the given quiver. Includes the Euler Matrix
   and the matrix B in a form suitable for pasting into a LaTeX doc, as well as
   the Mahler measure of the quiver and a plot of the eigenvalues of B.
@@ -500,11 +502,15 @@ def get_nums(quiver):
 
   # print(to_pmatrix(E(quiver)) + "\n")
   print(to_pmatrix(B(quiver)) + "\n")
-  print(tex_char_poly(B(quiver)) + "\n")
+  print(tex_char_poly(B(quiver), var) + "\n")
   print(eigens_from_quiver(quiver))
 
   print(mahler_measure_from_eigens(eigens_from_quiver(quiver)))
   plot_quiver_eigenvals(quiver)
 
 # Use this function on whichever quiver you want to graph and get matrices for.
-get_nums(ac_pendulum_4)
+try:
+  var = sys.argv[2]
+except IndexError:
+  var = "\\lambda"
+get_nums(globals()[sys.argv[1]], var)

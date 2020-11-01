@@ -1185,6 +1185,34 @@ As a result of this proposition, we can see that we need only to concern ourselv
 want to find a polynomial with smaller measure than Lehmer's. This is good news, as the characteristic polynomials
 of matrices are always monic by definition.
 
+Furthermore, Professor Veliche noticed that for some root $\lambda$ of a quiver,
+$\frac{1}{\lambda}$ appears to also be a root. The complex roots appear to lie on
+the unit circle, so their reciprocals are simply their conjugates, but in cases with
+real roots other than 1, it appears that they are indeed reciprocals. This notion
+corresponds with the definition of a \textit{reciprocal} or \textit{palindromic polynomial}, 
+which is defined to have palindromic coefficients. 
+
+Therefore we propose the following:
+
+\begin{proposition}
+    The characteristic polynomial of $B$ is reciprocal.
+    \begin{proof}
+        Let $B = - E^T E^{-1}$ and $E$ be an $n \times n$ triangular Euler matrix. Let $P(x) = \det{xI - B}$
+        Then $xI - B = xI + E^T E^{-1}$. Multiply by $E$ on the right to obtain
+        $(xI - B) = xE + E^T$. But since $\det{E} = 1$, $\det{xI - B} = \det{xE + E^T}$.
+        We know that since $\det{B} = \pm 1$, $x = 0$ is not a root of $\det{xI - B}$,
+        and so $\det{xI - B} = \det{xE + E^T} = 0$ means that 
+        $\det{xE+E^T} = x^n \det{E + \frac{1}{x} E^T}$. But we can see that for $x \neq 0$,
+        $P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$, so $P(x) = x^n P(\frac{1}{x})$,
+        and therefore by \cite{syz}  $P$ is reciprocal.
+    \end{proof}
+\end{proposition}
+
+If $x_i$ is some root of a reciprocal polynomial $P(x)$, 
+then $\frac{1}{x_i}$ is also a root of $P(x)$, which corresponds with the observation
+that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs.
+
+
 \begin{thebibliography}{99}
 
     \bibitem{dw} Derksen, H., Weyman, J., {\em An Introduction to Quiver
@@ -1201,7 +1229,14 @@ of matrices are always monic by definition.
     Postdoctoral Seminar, Mathematical Sciences Research Institute. (2006), 1-2.
 
     \bibitem{b} Bernstein, Dennis S. {\em Matrix Mathematics \/},
-    Princeton University Press. (2005) 44.
+    Princeton University Press. (2005), 44.
+
+    \bibitem{syz} Sun, H., Wang, Y., Zhang, H. X., {\em Polynomials with
+    Palindromic and Unimodal Coefficients}, Acta Mathematica Sinica, English
+    Series. {\bf 31} (2015), 565-575.
+
+    \bibitem{s} Stankov, Dragan, {\em The number of unimodular roots of some
+    reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
 \end{thebibliography}
 \pagebreak
 
