@@ -699,64 +699,8 @@ table below:
 \normalsize
 
 Notice that the Mahler measure of each quiver is increasing as more edges and vertices
-are added.
+are added. We would like to show that this, in fact, must be the case.
 
-Our current work on this question explores how $B$ changes when a single vertex $q$ is added to a quiver.
-Let $Q$ be some initial quiver with no oriented cycles, and let $E_Q$ be an upper triangular Euler matrix of $Q$.
-Let $Q'$ be a quiver formed by adding a single new vertex to $Q$ and any number of edges from vertices in $Q$
-to that new vertex. We call $B_Q = -E_Q^T E_Q^{-1}$ and $B_{Q'} = -E_{Q'}^T E_{Q'}^{-1}$. We wish to calculate $B_{Q'}$
-in terms of $B_Q$.
-
-Notice that the dimension of $E_{Q'}$ is 1 greater than the dimension of $E_Q$. We know by the definition of Euler matrix
-that
-
-$$E_{Q'} = \begin{pmatrix}
-    E_Q & \vec{c} \\ \vec{0} & [1] \\
-\end{pmatrix}$$
-
-where $\vec{c}$ is some column vector with $i$th entry equal to $|e \in Q_1 : h(e) = q|$. 
-Let $S = ([1] - \vec{0} E_Q^{-1} \vec{c})^{-1} = [1]$. Then by \cite{b}, we can say that
-
-$$E_{Q'}^{-1} = \begin{pmatrix}
-    E_Q^{-1} + E_Q^{-1} \vec{c} S^{-1} \vec{0} E_Q^{-1} && - E_Q^{-1} \vec{c} S^{-1}\\
-    - S^{-1} \vec{0} E_Q^{-1} & S^{-1} \\
-\end{pmatrix}$$
-
-$$E_{Q'}^{-1} = \begin{pmatrix}
-    E_Q^{-1} & -E_Q^{-1} \vec{c} \\
-    \vec{0} & [1] \\
-\end{pmatrix}$$
-
-So then 
-
-$$B_{Q'} = - \begin{pmatrix}
-    E_Q^{T} & \vec{0} \\
-    \vec{c}^T & [1] \\
-\end{pmatrix}
-\begin{pmatrix}
-    E_Q^{-1} & -E_Q^{-1} \vec{c} \\
-    \vec{0} & [1] \\
-\end{pmatrix}$$
-
-$$B_{Q'} = - \begin{pmatrix}
-    E_Q^T E_Q^{-1} &  - E_Q^T E_Q^{-1} \vec{c} \\
-    \vec{c}^T E_Q^{-1} & - \vec{c}^T E_Q^{-1} \vec{c} + [1] \\
-\end{pmatrix}$$
-
-But $B_Q = -E_Q^T E_Q^{-1}$, so
-
-$$B_{Q'} = \begin{pmatrix}
-    B_Q &  - B_Q \vec{c} \\
-    \vec{c}^T E_Q^{-1} & - \vec{c}^T E_Q^{-1} \vec{c} + [1] \\
-\end{pmatrix}$$
-
-The next step in this construction will be to use this equation to write
-the characteristic polynomial of $B_{Q'}$ in terms of the characteristic
-polynomial of $B_Q$, $\vec{c}$, and $E_Q$.
-
-After that, we will need to perform a similar process for creating $Q'$
-by adding a single edge but no new vertices. Doing that will hopefully allow
- us to establish that any subgraph $Q$ of some graph $Q'$ cannot have
  $M(Q) > M(Q')$.
 
 \begin{question}
@@ -1211,6 +1155,11 @@ Therefore we propose the following:
 If $x_i$ is some root of a reciprocal polynomial $P(x)$, 
 then $\frac{1}{x_i}$ is also a root of $P(x)$, which corresponds with the observation
 that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs.
+
+Also in progress is showing that if $E + E^T$ is positive semidefinite, then the roots of 
+$B$ must lie on the unit circle.
+
+
 
 
 \begin{thebibliography}{99}
