@@ -98,7 +98,25 @@
 
 \section{Introduction}
 
-We begin by introducing basic terminology that motivates our approach to the
+We investigate the properties of polynomials formed by the matrix $B$ defined
+on a quiver (see sections 1.1-1.5). In particular, we ask these questions:
+
+\begin{question}
+    Which polynomials $P$ can be written as the characteristic polynomial of a 
+    matrix $B$ for some Euler Matrix $E$ of a quiver?
+\end{question}
+
+\begin{question}
+    Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
+        M(Q')$?
+\end{question}
+
+\begin{question}
+    Given a triangular matrix $E$, is it the case that if $E + E^T$ is positive semidefinite,
+    then the characteristic polynomial of $B$ has roots on the unit circle in the complex plane?
+\end{question}
+
+We now introduce basic terminology that motivates our approach to the
 problem. The main objects under study are quivers, and the related matrices are
 defined for use in the theory of quiver representations.
 
@@ -232,6 +250,11 @@ This project studies the matrix product defined by $B = -E^T E^{-1}$, where $E$
 is the Euler Matrix for some quiver $Q$. The matrix $B$ is used in the
 Ausland-Reiter Transform \cite{dw}; however, defining the transform is currently
 beyond the scope of this project.
+
+An important note is that $B$ is defined using $E^{-1}$, but $E$ is 
+singular when its defining quiver is cyclic (TODO: find citation). Therefore, we will
+generally be considering only acyclic quivers.
+
 \subsection{Dynkin Diagrams}
 
 Of particular importance in representation theory are the \textit{Dynkin
@@ -460,7 +483,7 @@ we provide them below.
 
 \end{definition}
 According to professor Derksen, the eigenvalues of $B$ will lie on the unit circle when the quiver $Q$ is either a simply laced Dynkin diagram or an extended Dynkin diagram.
-\subsection*{Mahler Measure}
+\subsection{Mahler Measure}
 
 We consider the \textit{Mahler Measure} of polynomials to evaluate "closeness" of their roots to the unit circle in the complex plane:
 
@@ -561,33 +584,171 @@ $B$. Knowing this, we can compare them:
     calculating, we find that $M(B) \approx 2.3692054071$.
 \end{example}
 
-\section*{Goal and Approach}
-
-This project will study the eigenvalues of $B$ in relation to their distance
-from the unit circle. We will consider only connected quivers that do not
-contain any oriented cycles.
-
-\begin{question}
-    If the eigenvalues of $B$ are not on the unit circle, how many are not on
-    the unit circle, and how close are they to the unit circle?
-\end{question}
-
-This ties directly into \textit{Lehmer's Conjecture} or \textit{Lehmer's
-    Question} \cite{m}:
-
+However, it is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
+for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
 \begin{question} Does there exist some $C > 1$ such that for every polynomial
     $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
 \end{question}
 Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $P(x) =
-    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}. Our approach
-will use the properties of the Euler Matrix $E$ to derive properties of $B$ and $B$'s
-eigenvalues. Currently, three questions are of particular interest:
+    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}.
+
+
+
+\subsection{Topological Ordering}
+
+Importantly, we know that any directed acyclic graph has a
+\textit{topological ordering} of vertices; see \cite{sw},
+wherein any edge $e$ has $h(e) \geq t(e)$,
+or in other words, the vertices are numbered in such a way that the
+edges all go in one direction. 
+
+\begin{example}
+    Consider $A_3$ as numbered below:
+    $$
+    \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[
+        draw = black,
+        circle,
+        inner sep = 1pt,
+        minimum size = 0.1mm
+        ]
+
+        \node (1) {$1$};
+        \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$};
+
+        \path[->] (1) edge (2);
+        \path[->] (3) edge (2);
+    \end{tikzpicture}
+$$
+
+We may construct a topological ordering of this graph by re-numbering
+vertex 3 as vertex 2. We can then draw the graph like this:
+
+$$
+    \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto,
+            node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[
+        draw = black,
+        circle,
+        inner sep = 1pt,
+        minimum size = 0.1mm
+        ]
+
+        \node (1) {$1$};
+        \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$};
+
+        \path[->] (1) [bend right] edge (3);
+        \path[->] (2) edge (3);
+    \end{tikzpicture}
+$$
+
+Notice that now the edges all flow in the same direction. If we consider
+ the example as an acyclic quiver, we see that arranging the vertices 
+ in a topological order means
+that $E$ will be an upper triangular matrix; in particular,
+
+$$E = \begin{pmatrix}
+    1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
+\end{pmatrix}
+$$
+
+And this can similarly be done with a reversed ordering of the vertices
+to obtain a lower triangular $E$. It follows from the definitions that
+any topological ordering of a quiver will lead to a $E$ being triangular.
+Therefore, we will use this fact to assume that $E$ is defined as a
+triangular matrix when we use it in examples and calculations. According
+to professor Derksen, if such an ordering can be constructed, it will
+not change what the eigenvalues of $B$ are.
+
+\end{example}
+
+\section*{Goal and Approach}
+
+This project will study the eigenvalues of $B$ in relation to their distance
+from the unit circle. We will consider only connected quivers that do not
+contain any oriented cycles. We reference the questions from the introduction.
+
+We consider the following general question as an overall direction for studies:
+\begin{question}
+    If the eigenvalues of $B$ are not on the unit circle, how many are not on
+the unit circle, and how close are they to the unit circle?
+\end{question}
+
+This ties directly into \textit{Lehmer's Question}; see \cite{m}.
 
 \begin{question}
     Which polynomials $P$ can be written as the characteristic polynomial of a
     matrix $B$ such that $B = - E^T E^{-1}$ for some Euler Matrix $E$ of a
     quiver?
 \end{question}
+
+We can see that if we were not studying monic polynomials, we would be unable
+to achieve a Mahler measure smaller than 2:
+
+\begin{proposition}
+    Any non-monic polynomial $P(x)$ cannot have $M(P)$ less than the Salem number.
+    \begin{proof}
+        Consider some $P(x) = a_d \prod_{i=1}^{n} (x - \alpha_i)$ where $a_d > 1$. Since $P$ has coefficients
+        in the integers, $a_d$ is an integer. Then $a_d \geq 2$, and by the definition of Mahler measure
+        $$M(P) = 2 \prod_{i=1}^{n} \max\{1, |\alpha_i|\}$$ so $M(P) \geq 2$.
+    \end{proof}
+\end{proposition}
+
+As a result of this proposition, we can see that we need only to concern ourselves with monic polynomials if we
+want to find a polynomial with smaller measure than Lehmer's. This is good news, as the characteristic polynomials
+of matrices are always monic by definition. 
+
+Furthermore, Professor Veliche noticed that for some root $\lambda$ of a quiver,
+$\frac{1}{\lambda}$ appears to also be a root. The complex roots appear to lie on
+the unit circle, so their reciprocals are simply their conjugates, but in cases with
+real roots other than 1, it appears that they are indeed reciprocals. This notion
+corresponds with the definition of a \textit{reciprocal} or \textit{palindromic polynomial}, 
+which is defined to have palindromic coefficients. 
+
+Therefore we propose the following:
+
+\begin{proposition}
+    The characteristic polynomial of $B$ is reciprocal.
+    \begin{proof}
+        Let $B = - E^T E^{-1}$ and $E$ be an $n \times n$ triangular Euler matrix. Let $P(x) = \det{xI - B}$
+        Then $xI - B = xI + E^T E^{-1}$. Multiply by $E$ on the right to obtain
+        $(xI - B) = xE + E^T$. But since $\det{E} = 1$, $\det{xI - B} = \det{xE + E^T}$.
+        We know that since $\det{B} = \pm 1$, $x = 0$ is not a root of $\det{xI - B}$,
+        and so $\det{xI - B} = \det{xE + E^T} = 0$ means that 
+        $\det{xE+E^T} = x^n \det{E + \frac{1}{x} E^T}$. But we can see that for $x \neq 0$,
+        $P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$, so $P(x) = x^n P(\frac{1}{x})$,
+        and therefore by \cite{syz}  $P$ is reciprocal.
+    \end{proof}
+\end{proposition}
+
+If $x_i$ is some root of a reciprocal polynomial $P(x)$, 
+then $\frac{1}{x_i}$ is also a root of $P(x)$, which corresponds with the observation
+that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs.
+
+\begin{question}
+    Given a triangular matrix $E$, is it the case that if $E + E^T$ is positive semidefinite,
+    then the characteristic polynomial of $B$ has roots on the unit circle in the complex plane?
+\end{question}
+
+According to professor Derksen, this is known to be true via the classification
+of quiver representations; see \cite{dw}. However, we would like to demonstrate
+this relationship from the matrices themselves, without relying on the apparatus
+of quiver representation theory.
 
 \begin{question}
     Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
@@ -699,22 +860,9 @@ table below:
 \normalsize
 
 Notice that the Mahler measure of each quiver is increasing as more edges and vertices
-are added. We would like to show that this, in fact, must be the case.
-
- $M(Q) > M(Q')$.
-
-\begin{question}
-    Does there exist a set of quivers $F = \{F_1, F_2, \dots F_m\}$ such that
-    for all $i$, $M(F_i) > 1$ and any quiver $Q$ with $M(Q) > 1$ contains some
-    $F_i$ as a subgraph?
-\end{question}
-
-The idea is hopefully to show that any polynomial that could have Mahler Measure
-smaller than Lehmer's polynomial could be represented as the characteristic
-polynomial of some $B$. Then, if all quivers with $M(Q) > 1$ have a subgraph
-$F_i$ with $M(F_i) > 1$, and the set $F$ has some minimum $M(F_j)$, then that
-would show that all polynomials have Mahler Measure greater than $\approx
-    1.1762808$.
+are added. We would like to show that this, in fact, must be the case,
+and the addition of any edges or vertices to a quiver cannot lead to a smaller
+Mahler measure than the original quiver.
 
 \section*{Background}
 
@@ -1111,57 +1259,6 @@ each row is a subquiver of the following rows.
 \end{longtable}
 \normalsize
 
-\section*{Works In Progress}
-
-This section contains some current remarks and propositions that have not been categorized into the
-rest of the paper. 
-
-\begin{proposition}
-    Any polyonomial with common factor $a_d > 1$ cannot have $M(P)$ less than the Salem number.
-    \begin{proof}
-        Consider some $P(x) = a_d \prod_{i=1}^{n} (x - \alpha_i)$ where $a_d > 1$. Since $P$ has coefficients
-        in the integers, $a_d$ is an integer. Then $a_d \geq 2$, and by the definition of Mahler measure
-        $$M(P) = |a_d| \prod_{i=1}^{n} \max\{1, |\alpha_i|\}$$ so $M(P) \geq 2$.
-    \end{proof}
-\end{proposition}
-
-As a result of this proposition, we can see that we need only to concern ourselves with monic polynomials if we
-want to find a polynomial with smaller measure than Lehmer's. This is good news, as the characteristic polynomials
-of matrices are always monic by definition.
-
-Furthermore, Professor Veliche noticed that for some root $\lambda$ of a quiver,
-$\frac{1}{\lambda}$ appears to also be a root. The complex roots appear to lie on
-the unit circle, so their reciprocals are simply their conjugates, but in cases with
-real roots other than 1, it appears that they are indeed reciprocals. This notion
-corresponds with the definition of a \textit{reciprocal} or \textit{palindromic polynomial}, 
-which is defined to have palindromic coefficients. 
-
-Therefore we propose the following:
-
-\begin{proposition}
-    The characteristic polynomial of $B$ is reciprocal.
-    \begin{proof}
-        Let $B = - E^T E^{-1}$ and $E$ be an $n \times n$ triangular Euler matrix. Let $P(x) = \det{xI - B}$
-        Then $xI - B = xI + E^T E^{-1}$. Multiply by $E$ on the right to obtain
-        $(xI - B) = xE + E^T$. But since $\det{E} = 1$, $\det{xI - B} = \det{xE + E^T}$.
-        We know that since $\det{B} = \pm 1$, $x = 0$ is not a root of $\det{xI - B}$,
-        and so $\det{xI - B} = \det{xE + E^T} = 0$ means that 
-        $\det{xE+E^T} = x^n \det{E + \frac{1}{x} E^T}$. But we can see that for $x \neq 0$,
-        $P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$, so $P(x) = x^n P(\frac{1}{x})$,
-        and therefore by \cite{syz}  $P$ is reciprocal.
-    \end{proof}
-\end{proposition}
-
-If $x_i$ is some root of a reciprocal polynomial $P(x)$, 
-then $\frac{1}{x_i}$ is also a root of $P(x)$, which corresponds with the observation
-that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs.
-
-Also in progress is showing that if $E + E^T$ is positive semidefinite, then the roots of 
-$B$ must lie on the unit circle.
-
-
-
-
 \begin{thebibliography}{99}
 
     \bibitem{dw} Derksen, H., Weyman, J., {\em An Introduction to Quiver
@@ -1186,6 +1283,10 @@ $B$ must lie on the unit circle.
 
     \bibitem{s} Stankov, Dragan, {\em The number of unimodular roots of some
     reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
+
+    \bibitem{sw} Sedgewick, R., Wayne, K., {\em Algorithms: Fourth Edition,
+            Part II\/}, Addison-Wesley, Boston. (2014), 574-578.
+            
 \end{thebibliography}
 \pagebreak
 
