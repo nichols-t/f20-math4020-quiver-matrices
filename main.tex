@@ -747,8 +747,32 @@ that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs
 
 According to professor Derksen, this is known to be true via the classification
 of quiver representations; see \cite{dw}. However, we would like to demonstrate
-this relationship from the matrices themselves, without relying on the apparatus
-of quiver representation theory.
+this relationship without relying on classification.
+
+\begin{proposition}
+    Suppose for some Euler matrix $E$ that $E + E^T$ is positive
+    semi-definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
+    where $x$ is a root of $\det(xE+E^T)$.
+    Then $(xE + E^T) \textbf{v} = 0$ so
+
+    $$x E \textbf{v} + E^T \textbf{v} = 0$$
+
+    and therefore $x E \textbf{v} = - E^T \textbf{v}$.
+
+    Since $E + E^T$ is positive semi-definite, then
+
+    $$\textbf{v}^* (E + E^T) \textbf{v} \geq 0$$
+
+    so
+
+    $$ \textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} \geq 0$$
+
+    For $\textbf{v} \in \ker(E + E^T)$, we can therefore say that
+
+    $$\textbf{v}^* E \textbf{v} - x \textbf{v}^* E \textbf{v} \geq 0$$
+
+
+\end{proposition}
 
 \begin{question}
     Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
