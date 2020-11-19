@@ -57,6 +57,7 @@
 \newcommand{\bsx}{{\boldsymbol x}}
 \newcommand{\E}[2]{\operatorname{E}^{#1}_{#2}} \newcommand{\im}{\operatorname
 {Im}} \newcommand{\md}{{\displaystyle}}
+\newcommand*\conj[1]{\bar{#1}}
 
 \newtheorem{theorem*}{Main Theorem}
 
@@ -741,7 +742,7 @@ then $\frac{1}{x_i}$ is also a root of $P(x)$, which corresponds with the observ
 that the roots of the characteristic polynomial of $B$ occur in reciprocal pairs.
 
 \begin{question}
-    Given a triangular matrix $E$, is it the case that if $E + E^T$ is positive semidefinite,
+    Given a triangular matrix $E$, is it the case that if $E + E^T$ is positive definite,
     then the characteristic polynomial of $B$ has roots on the unit circle in the complex plane?
 \end{question}
 
@@ -749,30 +750,78 @@ According to professor Derksen, this is known to be true via the classification
 of quiver representations; see \cite{dw}. However, we would like to demonstrate
 this relationship without relying on classification.
 
-\begin{proposition}
-    Suppose for some Euler matrix $E$ that $E + E^T$ is positive
-    semi-definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
-    where $x$ is a root of $\det(xE+E^T)$.
-    Then $(xE + E^T) \textbf{v} = 0$ so
+\begin{proposition} Suppose an acyclic quiver has a
+    triangular Euler matrix $E$ and that $E + E^T$ is positive definite.
+    Then the solutions to $\det(xI - B)$ lie on the unit circle in the
+    complex plane. 
+    \begin{proof}
+        By assumption, $E + E^T$ is positive
+        definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
+        where $x$ is a solution of $\det(xE+E^T) = 0$.
+
+        Then $(xE + E^T) \textbf{v} = 0$ so
 
     $$x E \textbf{v} + E^T \textbf{v} = 0$$
 
     and therefore $x E \textbf{v} = - E^T \textbf{v}$.
 
-    Since $E + E^T$ is positive semi-definite, then
+    Furthermore, by taking the transpose of the above equation we obtain
+    $$\textbf{v}^* (xE + E^T)^* = 0$$
 
-    $$\textbf{v}^* (E + E^T) \textbf{v} \geq 0$$
+    but since $E$ is triangular with integer entries,
 
-    so
+    $$\textbf{v}^*(E + xE^T) = 0$$
 
-    $$ \textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} \geq 0$$
+    so 
 
-    For $\textbf{v} \in \ker(E + E^T)$, we can therefore say that
+    $$\textbf{v}^* E \textbf{v} = - \conj{x} \textbf{v}^* E^T \textbf{v}$$
 
-    $$\textbf{v}^* E \textbf{v} - x \textbf{v}^* E \textbf{v} \geq 0$$
+    But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
 
+    $$\textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
+    $$
 
+    and therefore
+    
+    $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
+
+    Suppose $\textbf{v} E \textbf{v} = 0$. Then 
+    $$(\textbf{v} E \textbf{v})^* = 0^*$$
+    $$\textbf{v}^* (\textbf{v}^* E)^* = 0$$
+    $$\textbf{v}^* E^T \textbf{v} = 0$$
+
+    But $E + E^T$ is positive definite, so 
+    $$\textbf{v}^* (E + E^T) \textbf{v} > 0$$
+    $$\textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} > 0$$
+    $$0 > 0$$
+
+    which is a contradiction. So we know that
+    $\textbf{v}^* E \textbf{v} \neq 0$.
+
+    Therefore, since $\textbf{v}^* E \textbf{v} \neq 0$ and 
+    $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
+    we see that 
+    $$|x|^2 = 1$$
+    so $x$ must lie on the unit circle in the complex plane; and since
+    $$\det((xI - B)(E)) = \det((xE + E^T) =
+    \det(xI - B)\det(E) = \det(xI - B)$$
+    we can see that the characteristic polynomial
+    of $B = -E^T E^{-1}$ must have roots on the unit circle
+    in the complex plane when $E + E^T$ is positive definite.  
+    \end{proof}
 \end{proposition}
+
+In the future, we may investigate the converse of this problem, 
+or something close to it. The goal would likely be to find that 
+$E + E^T$ must be positive definite if $\det(xI + E^T E^{-1}) = 0$
+has all solutions on the unit circle.
+
+By \cite{ln} we know that any such polynomial would be the product of cyclotomic
+polynomials and powers of $x$; however, which of these polynomials may correspond
+to a characteristic polynomial of $B$ remains to be seen. 
+
+We also wish to investigate the case where $E + E^T$ is positive semidefinite,
+since the above argument does not work for that case. 
 
 \begin{question}
     Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
