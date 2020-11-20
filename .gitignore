@@ -4,3 +4,4 @@
 *.aux
 .vscode
 *.synctex.gz
+*.out
