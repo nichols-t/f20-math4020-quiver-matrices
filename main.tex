@@ -101,8 +101,11 @@
 
 \section{Introduction}
 
-We investigate the properties of polynomials formed by the matrix $B$ defined
-on a quiver (see sections 1.1-1.5). In particular, we ask these questions:
+We investigate the properties of the characteristic polynomial for a matrix $B$ defined
+on a quiver. We are interested in the roots of this characteristic polynomial
+and where they lie in the complex plane. 
+
+In particular, we ask these questions:
 
 \begin{question}
     Which polynomials $P$ can be written as the characteristic polynomial of a 
@@ -110,17 +113,21 @@ on a quiver (see sections 1.1-1.5). In particular, we ask these questions:
 \end{question}
 
 \begin{question}
-    Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is $M(Q) \leq
-        M(Q')$?
+    Given a triangular matrix $E$ of some acyclic quiver,
+    is it the case that if $E + E^T$ is positive semidefinite,
+    then the characteristic polynomial of $B$ has roots on the unit circle
+    in the complex plane?
 \end{question}
 
 \begin{question}
-    Given a triangular matrix $E$, is it the case that if $E + E^T$ is positive semidefinite,
-    then the characteristic polynomial of $B$ has roots on the unit circle in the complex plane?
+    Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is
+    $$M(\det(xI - B_Q)) \leq
+        M(\det(xI - B_{Q'}))$$
 \end{question}
 
 We now introduce basic terminology that motivates our approach to the
-problem. The main objects under study are quivers, and the related matrices are
+problem, before providing some background into the project motivations.
+The main objects under study are quivers, and the related matrices are
 defined for use in the theory of quiver representations.
 
 \subsection{Quivers}
@@ -250,7 +257,7 @@ beyond the scope of this project.
 
 An important note is that $B$ is defined using $E^{-1}$, but $E$ is 
 singular when its defining quiver is cyclic 
-\textcolor{red}{(TODO: find citation)}. Therefore, we will
+\cite{dp}. Therefore, we will
 generally be considering only acyclic quivers.
 
 
@@ -336,12 +343,60 @@ Therefore, we will use this fact to assume that $E$ is defined as a
 triangular matrix with diagonal values of 1
 when we use it in examples and calculations. According
 to professor Derksen, if such an ordering can be constructed, it will
-not change what the eigenvalues of $B$ are \textcolor{red}{TODO: cite}.
+not change the eigenvalues of $B$ \cite{dp}.
 
 \end{example}
 
+\subsection{Background and History}
+
+One way to look at the roots of a polynomial is to consider its \textit{Mahler measure},
+defined as 
+
+$$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
+Where 
+$$P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$$
+has integer coefficients. 
+
+It is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
+for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
+\begin{question} Does there exist some $C > 1$ such that for every polynomial
+    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
+\end{question}
+Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $P(x) =
+    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}.
+
+Lehmer first introduced his question in the 1933 paper \textit{Factorization of
+    Certain Cyclotomic Functions} \cite{l}. The initial paper was motivated by
+an approach for finding large primes \cite{ln}. A lemma of Kronecker implies
+that if $M(P) = 1$, then $P$ is a product of powers of $x$ and cyclotomic
+polynomials; see \cite{ln}.
+
+Some partial results bounding Mahler measure have been established. Breusch
+proved in 1951 that a monic, irreducible, and nonreciprocal polynomial $P$ then
+$$M(P) \geq 1.324717\dots$$ which is the real root of $x^3 - x - 1$ \cite{ln}.
+Later, in 1979, Dobrowolski showed that for a monic, irreducible, and
+non-cyclotomic $P$,
+$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$;
+see \cite{ln}.
+
+Several computational searches have been carried out in addition to the above
+approaches. None have yielded a counterexample to Lehmer's question \cite{m}.
+Mossinghoff carried out a search for all polynomials of degree at most 24 with
+Mahler measure less than 1.3; while the specific algorithm used applied only to
+even degrees, he was able to find 48 such polynomials of degree 22 and 46 of
+degree 24 \cite{m}. He was additionally able to use several other algorithms to
+extend the search calculations to more degrees, and was able to find a limit
+point for measures near 1.309; see \cite{m}.
+
+For more information on the work around Lehmer's question, see the cited works
+\textit{Mahler Measure of Polynomials} and \textit{Polynomials with Small Mahler
+    Measure}.
+
 
 \section{The Characteristic Polynomial of $B = -E^T E^{-1}$}
+
+
+\textcolor{red}{Can motivate this with table of example polynomials}
 
 For this section, we assume that $E$ is the Euler matrix of some acyclic quiver,
 with the vertices of that quiver numbered such that $E$ is triangular. We consider
@@ -564,8 +619,6 @@ is positive definite.
 This is not necessarily the case in reverse. Further research could investigate
 $E + E^T$ when the roots of $\det(xI - B)$ are known to be on the unit circle.
 
-\textcolor{red}{TODO: Do we mention extended Dynkin here?}
-
 \section{Roots of Subquivers}
 
 In this section, we again consider $B = - E^T E^{-1}$ for some
@@ -678,47 +731,9 @@ are added. Future work could show that the addition of any edges or
 vertices to a quiver cannot lead to a smaller
 Mahler measure for $\det(xI - B)$ than the original quiver.
 
-It is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
-for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
-\begin{question} Does there exist some $C > 1$ such that for every polynomial
-    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
-\end{question}
-Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $P(x) =
-    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}.
-
-\section*{Background}
-
-Lehmer first introduced his question in the 1933 paper \textit{Factorization of
-    Certain Cyclotomic Functions} \cite{l}. The initial paper was motivated by
-an approach for finding large primes \cite{ln}. A lemma of Kronecker implies
-that if $M(P) = 1$, then $P$ is a product of powers of $x$ and cyclotomic
-polynomials; see \cite{ln}.
-
-Some partial results bounding Mahler measure have been established. Breusch
-proved in 1951 that a monic, irreducible, and nonreciprocal polynomial $P$ then
-$$M(P) \geq 1.324717\dots$$ which is the real root of $x^3 - x - 1$ \cite{ln}.
-Later, in 1979, Dobrowolski showed that for a monic, irreducible, and
-non-cyclotomic $P$,
-$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$;
-see \cite{ln}.
-
-Several computational searches have been carried out in addition to the above
-approaches. None have yielded a counterexample to Lehmer's question \cite{m}.
-Mossinghoff carried out a search for all polynomials of degree at most 24 with
-Mahler measure less than 1.3; while the specific algorithm used applied only to
-even degrees, he was able to find 48 such polynomials of degree 22 and 46 of
-degree 24 \cite{m}. He was additionally able to use several other algorithms to
-extend the search calculations to more degrees, and was able to find a limit
-point for measures near 1.309; see \cite{m}.
-
-For more information on the work around Lehmer's question, see the cited works
-\textit{Mahler Measure of Polynomials} and \textit{Polynomials with Small Mahler
-    Measure}.
-
-
 \appendix
 
-\section{Examples}
+\section{\textcolor{red}{TODO: DELETE Examples}}
 
 This section contains a table of quivers, their matrices $B$, and plots of the
 eigenvalues of $B$ in the complex plane. First, we have the simply laced Dynkin
@@ -980,6 +995,10 @@ The source code used to generate examples, graphs, and calculations can
 be found at 
 \textcolor{blue}{\url{https://github.com/nichols-t/f20-math4020-quiver-matrices}}.
 \begin{thebibliography}{99}
+
+    \bibitem{dp} Derksen, H., {\em Private Communication} (2020).
+
+    \bibitem{op} Veliche, O., {\em Private Communication} (2020).
 
     \bibitem{dw} Derksen, H., Weyman, J., {\em An Introduction to Quiver
             Representations\/}, American Mathematical Society, Providence,
