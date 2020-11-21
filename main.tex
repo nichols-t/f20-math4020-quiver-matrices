@@ -92,10 +92,10 @@
 \begin{abstract} For a given quiver $Q$, we can define the matrix $B$ such that
     $B = -(E^T)E^{-1}$, where $E$ is the Euler matrix of $Q$. We investigate
     the roots of the characteristic polynomial of $B$ for
-    small quivers, including the simply laced Dynkin diagrams. We show that 
+    small quivers, including the simply laced Dynkin diagrams. We show that
     the characteristic polynomial of $B$ is reciprocal and that its roots must
     lie on the unit circle in the complex plane when $E + E^T$ is positive definite.
-    For this project, we consulted with Professor Harm Derksen. 
+    For this project, we consulted with Professor Harm Derksen.
 \end{abstract}
 \maketitle
 
@@ -103,12 +103,12 @@
 
 We investigate the properties of the characteristic polynomial for a matrix $B$ defined
 on a quiver. We are interested in the roots of this characteristic polynomial
-and where they lie in the complex plane. 
+and where they lie in the complex plane.
 
 In particular, we ask these questions:
 
 \begin{question}
-    Which polynomials $P$ can be written as the characteristic polynomial of a 
+    Which polynomials $P$ can be written as the characteristic polynomial of a
     matrix $B$ for some Euler Matrix $E$ of a quiver?
 \end{question}
 
@@ -146,7 +146,6 @@ defined for use in the theory of quiver representations.
 
 \begin{example}
     Consider the quiver illustrated by the following diagram:
-
     $$
         \begin{tikzpicture}[
                 > = stealth, % arrow head style
@@ -173,14 +172,12 @@ defined for use in the theory of quiver representations.
             \path[->] (3) edge (4);
         \end{tikzpicture}
     $$
-
     Then $Q_0 = \{1, 2, 3, 4\}$, $Q_1 = \{(1,2), (2,3), (3,4) \}$, and $h((1,2))
         = 2$ while $t((1,2)) = 1$.
 \end{example}
 
 \begin{example}
     Consider
-
     $$
         \begin{tikzpicture}[
                 > = stealth, % arrow head style
@@ -205,7 +202,6 @@ defined for use in the theory of quiver representations.
             \path[->] (1) edge [loop above] (1);
         \end{tikzpicture}
     $$
-
     Then $Q_0 = \{1, 2\}$, $Q_1 = \{(1,2), (2,1), (1,1) \}$, and $h((1,1)) =
         t((1,1)) = 1$.
 \end{example}
@@ -238,14 +234,10 @@ of a quiver:
 
 \begin{definition} \cite{dw} Given a quiver $Q = (Q_0, Q_1, h, t)$, then the
     \textit{Euler matrix} $E$ of $Q$ is defined as
-
     $$E_{i,j} = \delta_{i,j} - |\{a \in Q_1 : t(a) = i, h(a) = j \}|$$
-
     where $\delta_{i,j}$ is the Kronecker symbol, defined as
-
     $$\delta_{i,j} = \begin{cases} 1 \text{ if } i = j \\ 0 \text{ if } i \neq j
             \\\end{cases}$$
-
 \end{definition}
 
 \subsubsection{Ausland-Reiter Transform}
@@ -255,89 +247,83 @@ is the Euler Matrix for some quiver $Q$. The matrix $B$ is used in the
 Ausland-Reiter Transform; see \cite{dw}. However, defining this transform is
 beyond the scope of this project.
 
-An important note is that $B$ is defined using $E^{-1}$, but $E$ is 
-singular when its defining quiver is cyclic 
+An important note is that $B$ is defined using $E^{-1}$, but $E$ is
+singular when its defining quiver is cyclic
 \cite{dp}. Therefore, we will
 generally be considering only acyclic quivers.
-
 
 \subsection{Topological Ordering}
 
 Importantly, we know that any directed acyclic graph has a
 \textit{topological ordering} of vertices; see \cite{sw},
-wherein any edge $e$ has $h(e) \geq t(e)$,
-or in other words, the vertices are numbered in such a way that the
-edges all go in one direction. 
+wherein any edge $e$ has $h(e) \geq t(e)$. We can visualize these orderings
+by drawing the vertices in a line from least to greatest and adding edges
+accordingly.
 
 \begin{example}
     Consider $A_3$ as numbered below:
     $$
-    \begin{tikzpicture}[
-            > = stealth, % arrow head style
-            % shorten > = 1pt, % don't touch arrow head to node
-            auto,
-            node distance = 7mm, % distance between nodes
-            semithick % line style
-        ]
+        \begin{tikzpicture}[
+                > = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto,
+                node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
 
-        \tikzstyle{every node}=[
-        draw = black,
-        circle,
-        inner sep = 1pt,
-        minimum size = 0.1mm
-        ]
+            \tikzstyle{every node}=[
+            draw = black,
+            circle,
+            inner sep = 1pt,
+            minimum size = 0.1mm
+            ]
 
-        \node (1) {$1$};
-        \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$};
+            \node (1) {$1$};
+            \node (2) [right of=1] {$2$};
+            \node (3) [right of=2] {$3$};
 
-        \path[->] (1) edge (2);
-        \path[->] (3) edge (2);
-    \end{tikzpicture}
-$$
+            \path[->] (1) edge (2);
+            \path[->] (3) edge (2);
+        \end{tikzpicture}
+    $$
+    We may construct a topological ordering of this graph by re-numbering
+    vertex 3 as vertex 2. We can then draw the graph like this:
+    $$
+        \begin{tikzpicture}[
+                > = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto,
+                node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
 
-We may construct a topological ordering of this graph by re-numbering
-vertex 3 as vertex 2. We can then draw the graph like this:
+            \tikzstyle{every node}=[
+            draw = black,
+            circle,
+            inner sep = 1pt,
+            minimum size = 0.1mm
+            ]
 
-$$
-    \begin{tikzpicture}[
-            > = stealth, % arrow head style
-            % shorten > = 1pt, % don't touch arrow head to node
-            auto,
-            node distance = 7mm, % distance between nodes
-            semithick % line style
-        ]
+            \node (1) {$1$};
+            \node (2) [right of=1] {$2$};
+            \node (3) [right of=2] {$3$};
 
-        \tikzstyle{every node}=[
-        draw = black,
-        circle,
-        inner sep = 1pt,
-        minimum size = 0.1mm
-        ]
-
-        \node (1) {$1$};
-        \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$};
-
-        \path[->] (1) [bend right] edge (3);
-        \path[->] (2) edge (3);
-    \end{tikzpicture}
-$$
-
-Notice that now the edges all flow in the same direction. If we consider
- the example as an acyclic quiver, we see that arranging the vertices 
- in a topological order means
-that $E$ will be an upper triangular matrix; in particular,
-
-$$E = \begin{pmatrix}
-    1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
-\end{pmatrix}
-$$
-
-And this can similarly be done with a reversed ordering of the vertices
-to obtain a lower triangular $E$. It follows from the definitions that
-any topological ordering of a quiver will lead to a $E$ being triangular.
-Furthermore, for acyclic quivers, the diagonal entries of $E$ will be 1. 
+            \path[->] (1) [bend right] edge (3);
+            \path[->] (2) edge (3);
+        \end{tikzpicture}
+    $$
+    Notice that now the edges all flow in the same direction. If we consider
+    the example as an acyclic quiver, we see that arranging the vertices
+    in a topological order means
+    that $E$ will be an upper triangular matrix; in particular,
+    $$E = \begin{pmatrix}
+            1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
+        \end{pmatrix}
+    $$
+    And this can similarly be done with a reversed ordering of the vertices
+    to obtain a lower triangular $E$. It follows from the definitions that
+    any topological ordering of a quiver will lead to $E$ being triangular.
+\end{example}
 
 Therefore, we will use this fact to assume that $E$ is defined as a
 triangular matrix with diagonal values of 1
@@ -345,17 +331,25 @@ when we use it in examples and calculations. According
 to professor Derksen, if such an ordering can be constructed, it will
 not change the eigenvalues of $B$ \cite{dp}.
 
-\end{example}
+\begin{proposition}
+    Let $E$ be an Euler matrix of an acyclic quiver written in triangular form.
+    Then $\det(E) = 1$.
+    \begin{proof}
+        Since $E$ is defined on an acyclic quiver, there are no edges $(i, i)$
+        for any vertex $i$. Therefore $E_{i,i} = \delta_{i,i} - 0 = 1$. Since $E$
+        is triangular by assumption and has diagonal entries 1, $\det(E) = 1$.
+    \end{proof}
+\end{proposition}
 
-\subsection{Background and History}
+\subsection{History}
 
 One way to look at the roots of a polynomial is to consider its \textit{Mahler measure},
-defined as 
+defined as
 
 $$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
-Where 
+Where
 $$P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$$
-has integer coefficients. 
+has integer coefficients; see \cite{m}.
 
 It is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
 for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
@@ -392,245 +386,17 @@ For more information on the work around Lehmer's question, see the cited works
 \textit{Mahler Measure of Polynomials} and \textit{Polynomials with Small Mahler
     Measure}.
 
-
 \section{The Characteristic Polynomial of $B = -E^T E^{-1}$}
-
-
-\textcolor{red}{Can motivate this with table of example polynomials}
 
 For this section, we assume that $E$ is the Euler matrix of some acyclic quiver,
 with the vertices of that quiver numbered such that $E$ is triangular. We consider
 the form of the characteristic polynomial of $B = - E^T E^{-1}$.
 
-\begin{proposition}
-    The characteristic polynomial of $B$ is reciprocal.
-    \begin{proof}
-        A \textit{reciprocal polynomial} $P$ is a polynomial such that
-        $$P(x) = 0, x \neq 0 \rightarrow P(\frac{1}{x}) = 0$$
-        or in other words, a polynomial such that the roots come in reciprocal pairs.
-
-        Let $B = - E^T E^{-1}$ where $E$ has size $n \times n$. Let $P(x) = \det{xI - B}$
-        Then 
-        $$xI - B = xI + E^T E^{-1}$$
-        so 
-        $$(xI - B)E = xE + E^T$$
-        But since $\det(E) = 1$,
-        $$\det(xI - B) = \det(xE + E^T)$$
-
-        We know that since
-        $$\det(B) = \pm 1$$
-        $x = 0$ is not a root of $\det(xI - B)$,
-        and so when
-        $$\det(xI - B) = \det(xE + E^T) = 0$$
-        we see that 
-        $$\det(xE+E^T) = x^n \det(E + \frac{1}{x} E^T)$$
-        But for $x \neq 0$,
-        $$P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$$
-        so
-        $$P(x) = x^n P(\frac{1}{x})$$
-        and therefore by \cite{syz}  $P$ is reciprocal.
-    \end{proof}
-\end{proposition}
-
-Further research could find more specific restrictions on $\det(xI - B)$.
-
-\section{Roots of $\det(xI - B)$ when $E + E^T$ is positive definite}
-
-Let $B - E^T E^{-1}$ where $E$ is the Euler matrix of some acyclic quiver written
-in triangular form. For certain quivers, representation theory can tell us
-about the properties of $B$ and and $E$; in particular, the quivers known as
-the \textit{simply laced Dynkin diagrams} are well-studied, as they have connections
-to many other topics. 
-
-The \textit{simply laced Dynkin diagrams} are $A_n, D_n, E_6, E_7, $ and
-    $E_8$; see \cite{dw}. Dynkin diagrams are typically drawn as undirected graphs;
-    if we speak of a quiver as being related to a Dynkin diagram, we mean the
-    quiver drawn also as an undirected graph. We present the simply laced
-    Dynkin diagrams below:
-
-    $$                \begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 1mm]
-
-            \node (1) [label=left:$A_n$] {$1$}; \node (2) [right of=1] {$2$};
-            \node (3) [right of=2] {$3$}; \node (4) [right of=3] {$n$};
-
-            \path[-] (1) edge (2); \path[-] (2) edge (3); \path[dashed] (3) edge
-            (4);
-
-        \end{tikzpicture}
-    $$
-
-    $$                \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 17mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 1cm]
-
-            \node (1) [label=left:$D_n$] {$1$}; \node (2) [right of=1] {$n-2$};
-            \node (3) [above right of=2] {$n-1$}; \node (4) [below right of=2]
-            {$n$};
-
-            \path[dashed] (1) edge (2); \path[-] (2) edge (3); \path[-] (2) edge
-            (4);
-
-        \end{tikzpicture}
-    $$
-
-    $$                \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) [label=left:$E_6$] {$1$}; \node (2) [right of=1] {$2$};
-            \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-            (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$};
-
-            \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
-            \path[-] (3) edge (5); \path[-] (5) edge (6);
-
-        \end{tikzpicture}
-    $$
-
-    $$                \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) [label=left:$E_7$] {$1$}; \node (2) [right of=1] {$2$};
-            \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-            (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
-            [right of=6] {$7$};
-
-            \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
-            \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
-
-        \end{tikzpicture}
-    $$
-
-    $$                \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) [label=left:$E_8$] {$1$}; \node (2) [right of=1] {$2$};
-            \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-            (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
-            [right of=6] {$7$}; \node (8) [right of=7] {$8$};
-
-            \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
-            \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
-            \path[-] (7) edge (8);
-
-        \end{tikzpicture}
-    $$
-
-We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit circle.
-We also know that $E + E^T$ is positive definite when the quiver used to define $E$
-is a simply laced Dynkin diagram. These two facts are not obviously related, but we
-show below that the roots of $\det(xI - B)$ must lie on the unit circle if $E + E^T$
-is positive definite.
-
-\begin{proposition} Suppose an acyclic quiver has a
-    triangular Euler matrix $E$ and that $E + E^T$ is positive definite.
-    Then the solutions to $\det(xI - B)$ lie on the unit circle in the
-    complex plane. 
-    \begin{proof}
-        By assumption, $E + E^T$ is positive
-        definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
-        where $x$ is a solution of $\det(xE+E^T) = 0$.
-
-        Then $(xE + E^T) \textbf{v} = 0$ so
-
-    $$x E \textbf{v} + E^T \textbf{v} = 0$$
-
-    and therefore $x E \textbf{v} = - E^T \textbf{v}$.
-
-    Furthermore, by taking the conjugate transpose of the above equation we obtain
-    $$\textbf{v}^* (xE + E^T)^* = 0$$
-
-    but since $E$ is triangular with integer entries,
-
-    $$\textbf{v}^*(E + xE^T) = 0$$
-
-    so 
-
-    $$\textbf{v}^* E \textbf{v} = - \conj{x} \textbf{v}^* E^T \textbf{v}$$
-
-    But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
-
-    $$\textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
-    $$
-
-    and therefore
-    
-    $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
-
-    Suppose $\textbf{v} E \textbf{v} = 0$. Then 
-    $$(\textbf{v} E \textbf{v})^* = 0^*$$
-    $$\textbf{v}^* (\textbf{v}^* E)^* = 0$$
-    $$\textbf{v}^* E^T \textbf{v} = 0$$
-
-    But $E + E^T$ is positive definite, so 
-    $$\textbf{v}^* (E + E^T) \textbf{v} > 0$$
-    $$\textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} > 0$$
-    $$0 > 0$$
-
-    which is a contradiction. So we know that
-    $\textbf{v}^* E \textbf{v} \neq 0$.
-
-    Therefore, since $\textbf{v}^* E \textbf{v} \neq 0$ and 
-    $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
-    we see that 
-    $$|x|^2 = 1$$
-    so $x$ must lie on the unit circle in the complex plane; and since
-    $$\det((xI - B)(E)) = \det((xE + E^T) =
-    \det(xI - B)\det(E) = \det(xI - B)$$
-    we can see that the characteristic polynomial
-    of $B = -E^T E^{-1}$ must have roots on the unit circle
-    in the complex plane if $E + E^T$ is positive definite.  
-    \end{proof}
-\end{proposition}
-
-This is not necessarily the case in reverse. Further research could investigate
-$E + E^T$ when the roots of $\det(xI - B)$ are known to be on the unit circle.
-
-\section{Roots of Subquivers}
-
-In this section, we again consider $B = - E^T E^{-1}$ for some
-triangular Euler matrix $E$ for an acyclic quiver. Consider the following
-example, created by repeateddly adding a single vertex and edge to a small
-quiver:
-
 \tiny
-\begin{longtable}[H]{|c|c|c|c|}
+\begin{longtable}[H]{|c|c|}
     \hline
-    \rule{0pt}{3ex}\centered{Quiver} &
-    \centered{$\det(xI - B)$} & $M(\det(xI - B))$
+    \rule{0pt}{3ex}\centered{Quiver}      &
+    \centered{$\det(xI - B)$}
     \\
     \hline
     % "Pendulum" example with sequence of subquivers
@@ -648,8 +414,7 @@ quiver:
 
             \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
             (3); \path[->] (3) edge (4); \end{tikzpicture}} &
-    \centered{$\lambda^{4} - \lambda^{3} - 3\lambda^{2} - \lambda + 1$}
-    & \centered{2.3692054071} \\
+    \centered{$\lambda^{4} - \lambda^{3} - 3\lambda^{2} - \lambda + 1$} \\
     \hline
 
     \centered{\begin{tikzpicture}[> = stealth, % arrow head style
@@ -662,14 +427,12 @@ quiver:
             minimum size = 0.1mm]
 
             \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
-                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
-            {};
+                of=2] {}; \node (4) [below right of=2] {};
 
             \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
-            (3); \path[->] (3) edge (4); \path[->] (5) edge (1);
-        \end{tikzpicture}} &
-    \centered{$\lambda^{5} - \lambda^{4} - 3\lambda^{3} - 3\lambda^{2} - \lambda + 1$}
-    & \centered{2.618033988770564} \\
+            (3); \end{tikzpicture}} &
+    \centered{$\lambda^{4} + \lambda^{3} + \lambda^{2} + \lambda + 1$}
+    \\
     \hline
 
     \centered{\begin{tikzpicture}[> = stealth, % arrow head style
@@ -689,7 +452,307 @@ quiver:
             (3); \path[->] (3) edge (4); \path[->] (5) edge (1); \path[->] (3)
             edge (6);\end{tikzpicture}} &
     \centered{$\lambda^{6} - \lambda^{5} - 5\lambda^{4} - 7\lambda^{3} - 5\lambda^{2} - \lambda + 1$}
-    & \centered{3.3014904324145147} \\
+    \\
+    \hline
+
+    \caption{Several quivers, and the characteristic
+        polynomial of the associated $B = -E^T E^{-1}$}
+    \label{tab:ade}
+\end{longtable}
+\normalsize
+
+Notice that the coefficients of each polynomial are palindromic;
+this corresponds with the notion of a \textit{self-reciprocal}
+or \textit{palindromic} polynomial, which is a polynomial
+$$P(x) = a_n x^n + \dots + a_1 x + a_0$$
+such that $$P(x) = a_0 x^n + \dots | a_{n-1} x + a_n$$
+
+\begin{proposition}
+    Let $B = - E^T E^{-1}$ where $E$ is a triangular Euler
+    matrix of size $n \times n$. Let $P(x) = \det{xI - B}$.
+    Then $P(x)$ is self-reciprocal.
+    \begin{proof}
+        Consider
+        $$xI - B = xI + E^T E^{-1}$$
+        so
+        $$(xI - B)E = xE + E^T$$
+        But since $\det(E) = 1$,
+        $$\det(xI - B) = \det(xE + E^T)$$
+
+        We know that since
+        $$\det(B) = \pm 1$$
+        $x = 0$ is not a root of $\det(xI - B)$,
+        and so when
+        $$\det(xI - B) = \det(xE + E^T) = 0$$
+        we see that
+        $$\det(xE+E^T) = x^n \det(E + \frac{1}{x} E^T)$$
+        But for $x \neq 0$,
+        $$P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$$
+        so
+        $$P(x) = x^n P(\frac{1}{x})$$
+        and therefore by \cite{syz}  $P$ is self-reciprocal.
+    \end{proof}
+\end{proposition}
+
+Further research could find more specific restrictions on $\det(xI - B)$.
+
+\section{Roots of $\det(xI - B)$ when $E + E^T$ is positive definite}
+
+Let $B = - E^T E^{-1}$ where $E$ is the Euler matrix of some acyclic quiver written
+in triangular form. For certain quivers, representation theory can tell us
+about the properties of $B$ and and $E$; in particular, the quivers known as
+the simply laced Dynkin diagrams are well-studied, as they have connections
+to many other topics.
+
+The \textit{simply laced Dynkin diagrams} are $A_n, D_n, E_6, E_7, $ and
+$E_8$; see \cite{dw}. Dynkin diagrams are typically drawn as undirected graphs;
+if we speak of a quiver as being related to a Dynkin diagram, we mean the
+quiver drawn also as an undirected graph. We present the simply laced
+Dynkin diagrams below:
+
+$$                \begin{tikzpicture}[> = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto, node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+        minimum size = 1mm]
+
+        \node (1) [label=left:$A_n$] {$1$}; \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$}; \node (4) [right of=3] {$n$};
+
+        \path[-] (1) edge (2); \path[-] (2) edge (3); \path[dashed] (3) edge
+        (4);
+
+    \end{tikzpicture}
+$$
+
+$$                \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto, node distance = 17mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+        minimum size = 1cm]
+
+        \node (1) [label=left:$D_n$] {$1$}; \node (2) [right of=1] {$n-2$};
+        \node (3) [above right of=2] {$n-1$}; \node (4) [below right of=2]
+        {$n$};
+
+        \path[dashed] (1) edge (2); \path[-] (2) edge (3); \path[-] (2) edge
+        (4);
+
+    \end{tikzpicture}
+$$
+
+$$                \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto, node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+        minimum size = 0.1mm]
+
+        \node (1) [label=left:$E_6$] {$1$}; \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
+        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$};
+
+        \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+        \path[-] (3) edge (5); \path[-] (5) edge (6);
+
+    \end{tikzpicture}
+$$
+
+$$                \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto, node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+        minimum size = 0.1mm]
+
+        \node (1) [label=left:$E_7$] {$1$}; \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
+        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
+        [right of=6] {$7$};
+
+        \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+        \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+
+    \end{tikzpicture}
+$$
+
+$$                \begin{tikzpicture}[
+            > = stealth, % arrow head style
+            % shorten > = 1pt, % don't touch arrow head to node
+            auto, node distance = 7mm, % distance between nodes
+            semithick % line style
+        ]
+
+        \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+        minimum size = 0.1mm]
+
+        \node (1) [label=left:$E_8$] {$1$}; \node (2) [right of=1] {$2$};
+        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
+        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
+        [right of=6] {$7$}; \node (8) [right of=7] {$8$};
+
+        \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+        \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+        \path[-] (7) edge (8);
+
+    \end{tikzpicture}
+$$
+
+We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit circle.
+We also know that $E + E^T$ is positive definite when the quiver used to define $E$
+is a simply laced Dynkin diagram. These two facts are not obviously related, but we
+show below that the roots of $\det(xI - B)$ must lie on the unit circle if $E + E^T$
+is positive definite.
+
+\begin{proposition} Suppose an acyclic quiver has a
+    triangular Euler matrix $E$ and that $E + E^T$ is positive definite.
+    Let $B = -E^T E^{-1}$.
+    Then the solutions to $\det(xI - B)$ lie on the unit circle in the
+    complex plane.
+    \begin{proof}
+        By assumption, $E + E^T$ is positive
+        definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
+        where $x$ is a solution of $\det(xE+E^T) = 0$.
+
+        Then $(xE + E^T) \textbf{v} = 0$ so
+
+        $$x E \textbf{v} + E^T \textbf{v} = 0$$
+
+        and therefore $x E \textbf{v} = - E^T \textbf{v}$.
+
+        Furthermore, by taking the conjugate transpose of the above equation we obtain
+        $$\textbf{v}^* (xE + E^T)^* = 0$$
+
+        but since $E$ is triangular with integer entries,
+
+        $$\textbf{v}^*(E + xE^T) = 0$$
+
+        so
+
+        $$\textbf{v}^* E \textbf{v} = - \conj{x} \textbf{v}^* E^T \textbf{v}$$
+
+        But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
+
+        $$\textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
+        $$
+
+        and therefore
+
+        $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
+
+        Suppose $\textbf{v} E \textbf{v} = 0$. Then
+        $$(\textbf{v} E \textbf{v})^* = 0^*$$
+        $$\textbf{v}^* (\textbf{v}^* E)^* = 0$$
+        $$\textbf{v}^* E^T \textbf{v} = 0$$
+
+        But $E + E^T$ is positive definite, so
+        $$\textbf{v}^* (E + E^T) \textbf{v} > 0$$
+        $$\textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} > 0$$
+        $$0 > 0$$
+
+        which is a contradiction. So we know that
+        $\textbf{v}^* E \textbf{v} \neq 0$.
+
+        Therefore, since $\textbf{v}^* E \textbf{v} \neq 0$ and
+        $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
+        we see that
+        $$|x|^2 = 1$$
+        so $x$ must lie on the unit circle in the complex plane; and since
+        $$\det((xI - B)(E)) = \det((xE + E^T) =
+            \det(xI - B)\det(E) = \det(xI - B)$$
+        we can see that the characteristic polynomial
+        of $B = -E^T E^{-1}$ must have roots on the unit circle
+        in the complex plane if $E + E^T$ is positive definite.
+    \end{proof}
+\end{proposition}
+
+This is not necessarily the case in reverse. Further research could investigate
+$E + E^T$ when the roots of $\det(xI - B)$ are known to be on the unit circle.
+
+\section{Roots of Subquivers}
+
+In this section, we again consider $B = - E^T E^{-1}$ for some
+triangular Euler matrix $E$ for an acyclic quiver. Consider the following
+example, created by repeateddly adding a single vertex and edge to a small
+quiver:
+
+\tiny
+\begin{longtable}[H]{|c|c|c|c|}
+    \hline
+    \rule{0pt}{3ex}\centered{Quiver}      &
+    \centered{$\det(xI - B)$}             & $M(\det(xI - B))$
+    \\
+    \hline
+    % "Pendulum" example with sequence of subquivers
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {};
+
+            \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
+            (3); \path[->] (3) edge (4); \end{tikzpicture}} &
+    \centered{$\lambda^{4} - \lambda^{3} - 3\lambda^{2} - \lambda + 1$}
+                                          & \centered{2.3692054071}       \\
+    \hline
+
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
+            {};
+
+            \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
+            (3); \path[->] (3) edge (4); \path[->] (5) edge (1);
+        \end{tikzpicture}} &
+    \centered{$\lambda^{5} - \lambda^{4} - 3\lambda^{3} - 3\lambda^{2} - \lambda + 1$}
+                                          & \centered{2.618033988770564}  \\
+    \hline
+
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+                % shorten > = 1pt, % don't touch arrow head to node
+                auto, node distance = 7mm, % distance between nodes
+                semithick % line style
+            ]
+
+            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+            minimum size = 0.1mm]
+
+            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
+                of=2] {}; \node (4) [below right of=2] {}; \node (5) [left of=1]
+            {}; \node (6) [right of=3] {};
+
+            \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
+            (3); \path[->] (3) edge (4); \path[->] (5) edge (1); \path[->] (3)
+            edge (6);\end{tikzpicture}} &
+    \centered{$\lambda^{6} - \lambda^{5} - 5\lambda^{4} - 7\lambda^{3} - 5\lambda^{2} - \lambda + 1$}
+                                          & \centered{3.3014904324145147} \\
     \hline
 
 
@@ -710,7 +773,7 @@ quiver:
             (3); \path[->] (3) edge (4); \path[->] (5) edge (1); \path[->] (3)
             edge (6); \path[->] (4) edge (7); \end{tikzpicture}} &
     \centered{$\lambda^{7} - \lambda^{6} - 7\lambda^{5} - 13\lambda^{4} - 13\lambda^{3} - 7\lambda^{2} - \lambda + 1$}
-    & \centered{3.899908930943441} \\
+                                          & \centered{3.899908930943441}  \\
     \hline
 
     \caption{"Pendulum" quiver sequence and characteristic polynomials of $B$}
@@ -732,267 +795,10 @@ vertices to a quiver cannot lead to a smaller
 Mahler measure for $\det(xI - B)$ than the original quiver.
 
 \appendix
-
-\section{\textcolor{red}{TODO: DELETE Examples}}
-
-This section contains a table of quivers, their matrices $B$, and plots of the
-eigenvalues of $B$ in the complex plane. First, we have the simply laced Dynkin
-diagrams.
-
-\setlength\LTleft{-0.75in} \setlength\LTright{-1in}
-\tiny
-\begin{longtable}[H]{|c|c|c|}
-    \hline
-    \rule{0pt}{3ex}\centered{Graph}         & \centered{$B = -E^{T} E^{-1}$}                 &
-    \centered{Plot of Eigenvalues of
-        $B$}
-    \\
-    \hline
-    % Dynkin diagrams
-    \centered{
-        \begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [right of=3] {};
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4);
-        \end{tikzpicture}
-    }                                       & \centered{$\begin{pmatrix} -1 & -1
-                   & -1 & -1 \\ 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 1 & 0
-                \\\end{pmatrix}$}        &
-    \centered{\includegraphics[scale=0.3]{a4.png}}                                                 \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
-                of=2] {}; \node (4) [below right of=2] {};
-
-            \path[->] (1) edge (2); \path[->] (2) edge (4); \path[->] (2) edge
-            (3); \end{tikzpicture}}   & \centered{$\begin{pmatrix} -1 & -1 & -1
-                   & -1      \\ 1 & 0 & 0 & 0\\ 0 & 1 & 0 & 0\\ 0 & 0 & 1 & 0
-                \\\end{pmatrix}$}        &
-    \centered{\includegraphics[scale=0.3]{d4.png}}                                             \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [above of=3] {}; \node (5) [right of=3] {}; \node (6)
-            [right of=5] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (3) edge (5); \path[->] (5) edge (6);
-        \end{tikzpicture}}   & \centered{$\begin{pmatrix} -1 & -1 & -1 & -1
-                   & -1 & -1 &              \\ 1 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 & 0 & 0
-                   & 0  & 0  &              \\
-                0  & 0  & 1  & 0  & 1 & 1 & \\ 0 & 0 & 1 & 1 & 0 & 0 & \\ 0 & 0
-                   & 0  & 0  & 1  & 0 &     \\
-            \end{pmatrix}$}        &
-    \centered{\includegraphics[scale=0.3]{e6.png}}                                             \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [above of=3] {}; \node (5) [right of=3] {}; \node (6)
-            [right of=5] {}; \node (7) [right of=6] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (3) edge (5); \path[->] (5) edge (6); \path[->] (6)
-            edge (7); \end{tikzpicture}}   & \centered{$\begin{pmatrix} -1 & -1
-                   & -1 & -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 &
-                0  & 0  & 0  & 0  & 0  &      \\ 0 & 0 & 1 & 0 & 1 & 1 & 1 & \\ 0 &
-                0  & 1  & 1  & 0  & 0  & 0  & \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & \\ 0 &
-                0  & 0  & 0  & 0  & 1  & 0  & \\
-            \end{pmatrix}$}        &
-    \centered{\includegraphics[scale=0.3]{e7.png}}                                             \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [above of=3] {}; \node (5) [right of=3] {}; \node (6)
-            [right of=5] {}; \node (7) [right of=6] {}; \node (8) [right of=7]
-            {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (3) edge (5); \path[->] (5) edge (6); \path[->] (6)
-            edge (7); \path[->] (7) edge (8); \end{tikzpicture}}   &
-    \centered{$\begin{pmatrix} -1 & -1 & -1 & -1 & -1 & -1 & -1 & -1 &
-                \\ 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0
-                   &                                    \\ 0 & 0 & 1 & 0 & 1 & 1 & 1 &
-                1  &                                    \\ 0 & 0 & 1 & 1 & 0 & 0 & 0
-                   & 0  &                               \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 &
-                0  &                                    \\ 0 & 0 & 0 & 0 & 0 & 1 & 0  & 0  &
-                \\ 0 & 0 & 0 & 0 & 0 & 0 & 1  & 0  &                          \\
-            \end{pmatrix}$} & \centered{\includegraphics[scale=0.3]{e8.png}}   \\
-    \hline
-    \caption{\textit{ADE}-quivers and roots of $B$}
-    \label{tab:ade}
-\end{longtable}
-
-\normalsize
-Next we have the extended Dynkin diagrams.
-
-\tiny
-\begin{longtable}[H]{|c|c|c|}
-    \hline
-    \rule{0pt}{3ex}\centered{Graph}         & \centered{$B = -E^{T} E^{-1}$}                     &
-    \centered{Plot of Eigenvalues of
-        $B$}
-    \\
-    \hline
-    % Extended Dynkin Diagrams
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [right of=3] {}; \node (5) [above of=2] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (4) edge (5); \path[->] (1) edge (5);
-        \end{tikzpicture}}   &
-
-    \centered{$\begin{pmatrix} -1 & -1 & -1 & -1 & -2 & \\ 1 & 0 & 0 & 0 & 1 &
-                \\ 0 & 1 & 0 & 0 & 0 & \\ 0 & 0 & 1 & 0 & 0 & \\ 1 & 1 & 1 & 2 &
-                2  &                     \\
-            \end{pmatrix}$} & \centered{\includegraphics[scale=0.3]{a4_ext.png}}
-    \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [above right
-                of=2] {}; \node (4) [below right of=2] {}; \node (5) [above left
-                of=1] {}; \node (6) [below left of=1] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (2) edge
-            (4); \path[->] (1) edge (5); \path[->] (1) edge (6);
-        \end{tikzpicture}}   &
-
-    \centered{$\begin{pmatrix} -1 & -1 & -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 &
-                0  & 0  &                     \\ 0 & 1 & 0 & 0 & 0 & 1 & \\ 0 &
-                0  & 1  & 0  & 1  & 0  &      \\ 0 & 0 & 1 & 1  & 0  & 0  & \\ 0
-                   & 1  & 1  & 1  & 1  & 0  & \\
-            \end{pmatrix}$} & \centered{\includegraphics[scale=0.3]{d4_ext.png}}
-    \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [above of=3] {}; \node (5) [above of=4] {}; \node (6)
-            [right of=3] {}; \node (7) [right of=6] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (4) edge (5); \path[->] (3) edge (6); \path[->] (6)
-            edge (7); \end{tikzpicture}}   &
-
-    \centered{$\begin{pmatrix} -1 & -1 & -1 & -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 &
-                0  & 0  & 0  & 0  &                \\ 0 & 1 & 0 & 0 & 0 & 0 & 0
-                   &                               \\ 0 & 0 & 1 & 0 & 1 & 1 & 0 &
-                \\ 0 & 0  & 1  & 1  & 0  & 0  & 1  &      \\ 0 & 0 & 0  & 0  & 1
-                   & 0  & 0  &                     \\ 0 & 0 & 0 & 1 & 0  & 0  & 0  & \\
-            \end{pmatrix}$} & \centered{\includegraphics[scale=0.3]{e6_ext.png}}
-    \\
-    \hline
-    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto, node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-            minimum size = 0.1mm]
-
-            \node (1) {}; \node (2) [right of=1] {}; \node (3) [right of=2] {};
-            \node (4) [above of=3] {}; \node (5) [right of=3] {}; \node (6)
-            [right of=5] {}; \node (7) [right of=6] {}; \node (8) [right of=7]
-            {}; \node (9) [right of=8] {};
-
-
-            \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
-            (4); \path[->] (3) edge (5); \path[->] (5) edge (6); \path[->] (6)
-            edge (7); \path[->] (7) edge (8); \path[->] (8) edge (9);
-        \end{tikzpicture}}   & \centered{$\begin{pmatrix} -1 & -1 & -1 & -1 &
-                -1 & -1 & -1 & -1 & -1 &                 \\
-                1  & 0  & 0  & 0  & 0  & 0 & 0 & 0 & 0 & \\ 0 & 1 & 0 & 0 &
-                0  & 0  & 0  & 0  & 0  &                 \\ 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 1 & \\ 0
-                   & 0  & 1  & 1  & 0  & 0 & 0 & 0 & 0 &
-                \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 1
-                   & 0  & 0  & 0  &                      \\ 0 & 0
-                   & 0  & 0  & 0  & 0  & 1 & 0 & 0 &     \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 &
-                0  &                                     \\
-            \end{pmatrix}$}            &
-    \centered{\includegraphics[scale=0.3]{e8.png}}
-    \\
-    \hline
-    \caption{Extended \textit{ADE}-quivers and roots of $B$}
-    \label{tab:ade}
-\end{longtable}
-\normalsize
-
 \section{Source Code}
 
 The source code used to generate examples, graphs, and calculations can
-be found at 
+be found at
 \textcolor{blue}{\url{https://github.com/nichols-t/f20-math4020-quiver-matrices}}.
 \begin{thebibliography}{99}
 
@@ -1017,15 +823,15 @@ be found at
     Princeton University Press. (2005), 44.
 
     \bibitem{syz} Sun, H., Wang, Y., Zhang, H. X., {\em Polynomials with
-    Palindromic and Unimodal Coefficients}, Acta Mathematica Sinica, English
+            Palindromic and Unimodal Coefficients}, Acta Mathematica Sinica, English
     Series. {\bf 31} (2015), 565-575.
 
     \bibitem{s} Stankov, Dragan, {\em The number of unimodular roots of some
-    reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
+            reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
 
     \bibitem{sw} Sedgewick, R., Wayne, K., {\em Algorithms: Fourth Edition,
             Part II\/}, Addison-Wesley, Boston. (2014), 574-578.
-            
+
 \end{thebibliography}
 
 \end{document}
