@@ -144,67 +144,67 @@ defined for use in the theory of quiver representations.
         u$, $h(e_n) = v$.
 \end{definition}
 
-\begin{example}
-    Consider the quiver illustrated by the following diagram:
-    $$
-        \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto,
-                node distance = 7mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[
-            draw = black,
-            circle,
-            inner sep = 1pt,
-            minimum size = 0.1mm
-            ]
-
-            \node (1) {$1$};
-            \node (2) [right of=1] {$2$};
-            \node (3) [right of=2] {$3$};
-            \node (4) [right of=3] {$4$};
-
-            \path[->] (1) edge (2);
-            \path[->] (2) edge (3);
-            \path[->] (3) edge (4);
-        \end{tikzpicture}
-    $$
-    Then $Q_0 = \{1, 2, 3, 4\}$, $Q_1 = \{(1,2), (2,3), (3,4) \}$, and $h((1,2))
-        = 2$ while $t((1,2)) = 1$.
-\end{example}
-
-\begin{example}
-    Consider
-    $$
-        \begin{tikzpicture}[
-                > = stealth, % arrow head style
-                % shorten > = 1pt, % don't touch arrow head to node
-                auto,
-                node distance = 15mm, % distance between nodes
-                semithick % line style
-            ]
-
-            \tikzstyle{every node}=[
-            draw = black,
-            circle,
-            inner sep = 1pt,
-            minimum size = 0.1mm
-            ]
-
-            \node (1) {$1$};
-            \node (2) [right of=1] {$2$};
-
-            \path[->, bend left=10] (1) edge (2);
-            \path[->, bend left=10] (2) edge (1);
-            \path[->] (1) edge [loop above] (1);
-        \end{tikzpicture}
-    $$
-    Then $Q_0 = \{1, 2\}$, $Q_1 = \{(1,2), (2,1), (1,1) \}$, and $h((1,1)) =
-        t((1,1)) = 1$.
-\end{example}
+\begin{examples}
+    \label{ex:firstQuivers}
+    \begin{enumerate}
+        \item     Consider the quiver illustrated by the following diagram:
+        $$
+            \begin{tikzpicture}[
+                    > = stealth, % arrow head style
+                    % shorten > = 1pt, % don't touch arrow head to node
+                    auto,
+                    node distance = 7mm, % distance between nodes
+                    semithick % line style
+                ]
+    
+                \tikzstyle{every node}=[
+                draw = black,
+                circle,
+                inner sep = 1pt,
+                minimum size = 0.1mm
+                ]
+    
+                \node (1) {$1$};
+                \node (2) [right of=1] {$2$};
+                \node (3) [right of=2] {$3$};
+                \node (4) [right of=3] {$4$};
+    
+                \path[->] (1) edge (2);
+                \path[->] (2) edge (3);
+                \path[->] (3) edge (4);
+            \end{tikzpicture}
+        $$
+        Then $Q_0 = \{1, 2, 3, 4\}$, $Q_1 = \{(1,2), (2,3), (3,4) \}$, and $h((1,2))
+            = 2$ while $t((1,2)) = 1$.
+        \item     Consider
+        $$
+            \begin{tikzpicture}[
+                    > = stealth, % arrow head style
+                    % shorten > = 1pt, % don't touch arrow head to node
+                    auto,
+                    node distance = 15mm, % distance between nodes
+                    semithick % line style
+                ]
+    
+                \tikzstyle{every node}=[
+                draw = black,
+                circle,
+                inner sep = 1pt,
+                minimum size = 0.1mm
+                ]
+    
+                \node (1) {$1$};
+                \node (2) [right of=1] {$2$};
+    
+                \path[->, bend left=10] (1) edge (2);
+                \path[->, bend left=10] (2) edge (1);
+                \path[->] (1) edge [loop above] (1);
+            \end{tikzpicture}
+        $$
+        Then $Q_0 = \{1, 2\}$, $Q_1 = \{(1,2), (2,1), (1,1) \}$, and $h((1,1)) =
+            t((1,1)) = 1$.    
+    \end{enumerate}
+\end{examples}
 
 Notice that self-loops and cycles are permitted, and that the functions $h$ and
 $t$ are not necessarily injective, i.e. edges with the same head and tail may be
@@ -212,15 +212,13 @@ repeated. However, we will be considering quivers that do not contain
 \textit{oriented cycles}:
 
 \begin{definition} \cite{dw} An \textit{oriented cycle} of a quiver $Q = (Q_0,
-        Q_1, h, t)$ is a path from $u$ to $u$. Notice that we may equivalently
-    say that the cycle is a path from $v$ to $v$ for any $v$ contained in
-    the cycle.
+        Q_1, h, t)$ is a path from some vertex $u \in Q_0$ to $u$.
 \end{definition}
 
 \begin{example}
-    Consider again the quivers in Examples 1.1 and 1.2. Observe that the quiver
-    in Example 1.1 does not contain an oriented cycle, as there is no path from
-    any node back to itself. However, the quiver in Example 1.2 contains multiple
+    Consider again the quivers in Examples \ref{ex:firstQuivers}. Observe that the first quiver
+    does not contain an oriented cycle, as there is no path from
+    any node back to itself. However, the second quiver contains multiple
     oriented cycles; one consists only of the self-loop on 1, while the other
     consists of the edges $(1,2)$ and $(2,1)$.
 \end{example}
@@ -240,28 +238,28 @@ of a quiver:
             \\\end{cases}$$
 \end{definition}
 
-\subsubsection{Ausland-Reiter Transform}
-
-This project studies the matrix product defined by $B = -E^T E^{-1}$, where $E$
-is the Euler Matrix for some quiver $Q$. The matrix $B$ is used in the
-Ausland-Reiter Transform; see \cite{dw}. However, defining this transform is
-beyond the scope of this project.
-
-An important note is that $B$ is defined using $E^{-1}$, but $E$ is
-singular when its defining quiver is cyclic
-\cite{dp}. Therefore, we will
-generally be considering only acyclic quivers.
+\begin{definition} We define the \textit{Ausland-Reiter Matrix} $B$ of an acyclic
+    quiver $Q$ to be $B = - E^T E^{-1}$ where $E$ is the Euler matrix of $Q$.
+    This matrix is used in the Ausland-Reiter transform in the theory of quiver
+    representations; see \cite{dw}. However, defining that transform is beyond
+    the scope of this project.
+    
+    An important note is that $E$ is singular when its defining quiver is cyclic
+    \cite{dp}; this is why we restrict our definition of $B$ to acyclic quivers
+    $Q$. 
+\end{definition}
 
 \subsection{Topological Ordering}
 
 Importantly, we know that any directed acyclic graph has a
 \textit{topological ordering} of vertices; see \cite{sw},
-wherein any edge $e$ has $h(e) \geq t(e)$. We can visualize these orderings
+wherein any edge $e$ of a quiver $Q = \{Q_0, Q_1, h, t\}$ 
+has $h(e) \geq t(e)$. We can visualize these orderings
 by drawing the vertices in a line from least to greatest and adding edges
 accordingly.
 
 \begin{example}
-    Consider $A_3$ as numbered below:
+    Consider the quiver $A_3$ as illustrated below:
     $$
         \begin{tikzpicture}[
                 > = stealth, % arrow head style
@@ -315,7 +313,7 @@ accordingly.
     Notice that now the edges all flow in the same direction. If we consider
     the example as an acyclic quiver, we see that arranging the vertices
     in a topological order means
-    that $E$ will be an upper triangular matrix; in particular,
+    that $E$ will be an upper triangular matrix; in particular, for this quiver $A_3$,
     $$E = \begin{pmatrix}
             1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
         \end{pmatrix}
@@ -323,15 +321,15 @@ accordingly.
     And this can similarly be done with a reversed ordering of the vertices
     to obtain a lower triangular $E$. It follows from the definitions that
     any topological ordering of a quiver will lead to $E$ being triangular.
+    Therefore, we will use this fact to assume that $E$ is defined as a
+    triangular matrix with diagonal values of 1
+    when we use it in examples and calculations. According
+    to professor Derksen, if such an ordering can be constructed, it will
+    not change the eigenvalues of $B$ \cite{dp}.
 \end{example}
 
-Therefore, we will use this fact to assume that $E$ is defined as a
-triangular matrix with diagonal values of 1
-when we use it in examples and calculations. According
-to professor Derksen, if such an ordering can be constructed, it will
-not change the eigenvalues of $B$ \cite{dp}.
-
 \begin{proposition}
+    \label{prop:detE1}
     Let $E$ be an Euler matrix of an acyclic quiver written in triangular form.
     Then $\det(E) = 1$.
     \begin{proof}
@@ -611,49 +609,44 @@ $$                \begin{tikzpicture}[
     \end{tikzpicture}
 $$
 
-We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit circle.
+We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit
+circle.
 We also know that $E + E^T$ is positive definite when the quiver used to define $E$
-is a simply laced Dynkin diagram. These two facts are not obviously related, but we
+is a simply laced Dynkin diagram \cite{dp}. These two facts are not obviously related, but we
 show below that the roots of $\det(xI - B)$ must lie on the unit circle if $E + E^T$
 is positive definite.
 
 \begin{proposition} Suppose an acyclic quiver has a
     triangular Euler matrix $E$ and that $E + E^T$ is positive definite.
     Let $B = -E^T E^{-1}$.
-    Then the solutions to $\det(xI - B)$ lie on the unit circle in the
+    Then the roots of $\det(xI - B)$ lie on the unit circle in the
     complex plane.
     \begin{proof}
         By assumption, $E + E^T$ is positive
         definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
         where $x$ is a solution of $\det(xE+E^T) = 0$.
-
-        Then $(xE + E^T) \textbf{v} = 0$ so
-
+        Then $(xE + E^T) \textbf{v} = 0$, so
         $$x E \textbf{v} + E^T \textbf{v} = 0$$
-
         and therefore $x E \textbf{v} = - E^T \textbf{v}$.
 
         Furthermore, by taking the conjugate transpose of the above equation we obtain
         $$\textbf{v}^* (xE + E^T)^* = 0$$
-
         but since $E$ is triangular with integer entries,
-
+        $$(xE + E^T)^* = (E + \conj{x} E^T)$$
+        and then
         $$\textbf{v}^*(E + xE^T) = 0$$
-
         so
-
         $$\textbf{v}^* E \textbf{v} = - \conj{x} \textbf{v}^* E^T \textbf{v}$$
 
         But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
+        \begin{align*}
+            \textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})            
+            = |x|^2 \textbf{v}^* E \textbf{v}
+        \end{align*}
+        
 
-        $$\textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
-        $$
-
-        and therefore
-
-        $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
-
-        Suppose $\textbf{v} E \textbf{v} = 0$. Then
+        Suppose for the sake of contradiction that $\textbf{v}^* E \textbf{v} = 0$.
+        Then
         $$(\textbf{v} E \textbf{v})^* = 0^*$$
         $$\textbf{v}^* (\textbf{v}^* E)^* = 0$$
         $$\textbf{v}^* E^T \textbf{v} = 0$$
@@ -663,7 +656,7 @@ is positive definite.
         $$\textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} > 0$$
         $$0 > 0$$
 
-        which is a contradiction. So we know that
+        which is a contradiction. So we obtain that
         $\textbf{v}^* E \textbf{v} \neq 0$.
 
         Therefore, since $\textbf{v}^* E \textbf{v} \neq 0$ and
@@ -673,14 +666,48 @@ is positive definite.
         so $x$ must lie on the unit circle in the complex plane; and since
         $$\det((xI - B)(E)) = \det((xE + E^T) =
             \det(xI - B)\det(E) = \det(xI - B)$$
+        as $\det(E) = 1$ by proposition \ref{prop:detE1},
         we can see that the characteristic polynomial
         of $B = -E^T E^{-1}$ must have roots on the unit circle
         in the complex plane if $E + E^T$ is positive definite.
     \end{proof}
 \end{proposition}
 
-This is not necessarily the case in reverse. Further research could investigate
-$E + E^T$ when the roots of $\det(xI - B)$ are known to be on the unit circle.
+The converse is not necessarily true; consider the following example: 
+
+\begin{example}
+    \label{ex:nonPDEplusET}
+    Consider the quiver $\hat{A_3}$
+    $$\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) {$1$}; \node (2) [above right of=1] {$2$};
+    \node (3) [below right of=1] {$3$};
+
+    \path[->] (1) edge (2); \path[->] (1) edge (3); \path[->] (2) edge (3);
+\end{tikzpicture}
+$$
+Then $$E = \begin{pmatrix}
+    1 & -1 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
+\end{pmatrix}$$
+and so $$E + E^T = \begin{pmatrix}
+    2 & -1 & -1 \\ -1 & 2 & -1 \\ -1 & -1 & 2 \\ 
+\end{pmatrix}$$
+But then $E + E^T$ has $0$ as an eigenvalue,
+and so is not positive definite. However, the roots of $B = - E^T E^{-1}$
+for this quiver  are $\pm 1$, which do lie on the unit circle.  
+\end{example}
+
+Further research could investigate
+what properties $E + E^T$ should have such that 
+the roots of $\det(xI - B)$ are on the unit circle.
 
 \section{Roots of Subquivers}
 
@@ -783,7 +810,7 @@ quiver:
 
 Here, $M(\det(xI - B))$ refers to the \textit{Mahler measure} \cite{m} of the
 characteristic polynomial of $B$.
-The Mahler measure of a polynomial $P(x) \in \mathbb{Z}[x]$
+The Mahler measure of a polynomial $P \in \mathbb{Z}[x]$
 with integer coefficients
 where $$P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$$
 is defined as
