@@ -156,19 +156,19 @@ defined for use in the theory of quiver representations.
                     node distance = 7mm, % distance between nodes
                     semithick % line style
                 ]
-    
+
                 \tikzstyle{every node}=[
                 draw = black,
                 circle,
                 inner sep = 1pt,
                 minimum size = 0.1mm
                 ]
-    
+
                 \node (1) {$1$};
                 \node (2) [right of=1] {$2$};
                 \node (3) [right of=2] {$3$};
                 \node (4) [right of=3] {$4$};
-    
+
                 \path[->] (1) edge (2);
                 \path[->] (2) edge (3);
                 \path[->] (3) edge (4);
@@ -185,24 +185,24 @@ defined for use in the theory of quiver representations.
                     node distance = 15mm, % distance between nodes
                     semithick % line style
                 ]
-    
+
                 \tikzstyle{every node}=[
                 draw = black,
                 circle,
                 inner sep = 1pt,
                 minimum size = 0.1mm
                 ]
-    
+
                 \node (1) {$1$};
                 \node (2) [right of=1] {$2$};
-    
+
                 \path[->, bend left=10] (1) edge (2);
                 \path[->, bend left=10] (2) edge (1);
                 \path[->] (1) edge [loop above] (1);
             \end{tikzpicture}
         $$
         Then $Q_0 = \{1, 2\}$, $Q_1 = \{(1,2), (2,1), (1,1) \}$, and $h((1,1)) =
-            t((1,1)) = 1$.    
+            t((1,1)) = 1$.
     \end{enumerate}
 \end{examples}
 
@@ -243,17 +243,17 @@ of a quiver:
     This matrix is used in the Ausland-Reiter transform in the theory of quiver
     representations; see \cite{dw}. However, defining that transform is beyond
     the scope of this project.
-    
+
     An important note is that $E$ is singular when its defining quiver is cyclic
     \cite{dp}; this is why we restrict our definition of $B$ to acyclic quivers
-    $Q$. 
+    $Q$.
 \end{definition}
 
 \subsection{Topological Ordering}
 
 Importantly, we know that any directed acyclic graph has a
 \textit{topological ordering} of vertices; see \cite{sw},
-wherein any edge $e$ of a quiver $Q = \{Q_0, Q_1, h, t\}$ 
+wherein any edge $e$ of a quiver $Q = \{Q_0, Q_1, h, t\}$
 has $h(e) \geq t(e)$. We can visualize these orderings
 by drawing the vertices in a line from least to greatest and adding edges
 accordingly.
@@ -387,9 +387,47 @@ For more information on the work around Lehmer's question, see the cited works
 \section{The Characteristic Polynomial of $B = -E^T E^{-1}$}
 
 For this section, we assume that $E$ is the Euler matrix of some acyclic quiver,
-with the vertices of that quiver numbered such that $E$ is triangular. We consider
+with the vertices of that quiver numbered such that $E$ is upper or lower
+triangular. We consider
 the form of the characteristic polynomial of $B = - E^T E^{-1}$.
 
+First, we define a \textit{self-reciprocal polynomial} to be a polynomial
+$$P(x) = a_n x^n + a_{n -1} x^{n - 1} \dots + a_i x^i + \dots + a_1 x + a_0$$
+such that
+$$P(x) = a_0 x^n + a_{1} x^{n - 1} + \dots + a_{n - i} x^{i}
++ \dots + a_{n - 1} x + a_n$$
+where $a_n \neq 0, a_0 \neq 0$; see \cite{syz}.
+
+\begin{proposition}
+    Let $B = - E^T E^{-1}$ where $E$ is a triangular Euler
+    matrix of size $n \times n$ of an acyclic quiver. Let $P(x) = \det{xI - B}$.
+    Then $P(x)$ is self-reciprocal.
+    \begin{proof}
+        Consider
+        $$xI - B = xI + E^T E^{-1}$$
+        so
+        $$(xI - B)E = xE + E^T$$
+        But since $\det(E) = 1$ by \ref{prop:detE1},
+        $$P(x) = \det(xI - B) = \det(xE + E^T)$$
+
+        Additionally,
+        $$\det(B) = (-1)^n \det(E^T) \det(E^{-1}) = (-1)^n \neq 0$$
+        Since $\det(B) \neq 0$,
+        $x = 0$ is not a root of $P(x)$.
+
+        Let $x$ be a root of $P(x)$. Then
+        $$P(x) = \det(xE+E^T) = x^n \det \left(E + \frac{1}{x} E^T \right)$$
+        But for $x \neq 0$,
+        $$P\left(\frac{1}{x}\right) = \det\left(E +  \frac{1}{x} E^T\right)$$
+        so
+        $$P(x) = x^n P\left(\frac{1}{x}\right)$$
+        Therefore by comparing coefficients $P$ is self-reciprocal.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+Consider the characteristic polynomials of $B = -E^T E^{-1}$ for
+the quivers below.
 \tiny
 \begin{longtable}[H]{|c|c|}
     \hline
@@ -452,45 +490,14 @@ the form of the characteristic polynomial of $B = - E^T E^{-1}$.
     \centered{$\lambda^{6} - \lambda^{5} - 5\lambda^{4} - 7\lambda^{3} - 5\lambda^{2} - \lambda + 1$}
     \\
     \hline
-
     \caption{Several quivers, and the characteristic
         polynomial of the associated $B = -E^T E^{-1}$}
-    \label{tab:ade}
+    \label{ex:charpoly}
 \end{longtable}
 \normalsize
 
-Notice that the coefficients of each polynomial are palindromic;
-this corresponds with the notion of a \textit{self-reciprocal}
-or \textit{palindromic} polynomial, which is a polynomial
-$$P(x) = a_n x^n + \dots + a_1 x + a_0$$
-such that $$P(x) = a_0 x^n + \dots | a_{n-1} x + a_n$$
-
-\begin{proposition}
-    Let $B = - E^T E^{-1}$ where $E$ is a triangular Euler
-    matrix of size $n \times n$. Let $P(x) = \det{xI - B}$.
-    Then $P(x)$ is self-reciprocal.
-    \begin{proof}
-        Consider
-        $$xI - B = xI + E^T E^{-1}$$
-        so
-        $$(xI - B)E = xE + E^T$$
-        But since $\det(E) = 1$,
-        $$\det(xI - B) = \det(xE + E^T)$$
-
-        We know that since
-        $$\det(B) = \pm 1$$
-        $x = 0$ is not a root of $\det(xI - B)$,
-        and so when
-        $$\det(xI - B) = \det(xE + E^T) = 0$$
-        we see that
-        $$\det(xE+E^T) = x^n \det(E + \frac{1}{x} E^T)$$
-        But for $x \neq 0$,
-        $$P(\frac{1}{x}) = \det{E + \frac{1}{x} E^T}$$
-        so
-        $$P(x) = x^n P(\frac{1}{x})$$
-        and therefore by \cite{syz}  $P$ is self-reciprocal.
-    \end{proof}
-\end{proposition}
+Notice that the coefficients of each polynomial are palindromic.
+\end{example}
 
 Further research could find more specific restrictions on $\det(xI - B)$.
 
@@ -640,10 +647,10 @@ is positive definite.
 
         But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
         \begin{align*}
-            \textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})            
+            \textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
             = |x|^2 \textbf{v}^* E \textbf{v}
         \end{align*}
-        
+
 
         Suppose for the sake of contradiction that $\textbf{v}^* E \textbf{v} = 0$.
         Then
@@ -673,7 +680,7 @@ is positive definite.
     \end{proof}
 \end{proposition}
 
-The converse is not necessarily true; consider the following example: 
+The converse is not necessarily true; consider the following example:
 
 \begin{example}
     \label{ex:nonPDEplusET}
@@ -698,15 +705,15 @@ Then $$E = \begin{pmatrix}
     1 & -1 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
 \end{pmatrix}$$
 and so $$E + E^T = \begin{pmatrix}
-    2 & -1 & -1 \\ -1 & 2 & -1 \\ -1 & -1 & 2 \\ 
+    2 & -1 & -1 \\ -1 & 2 & -1 \\ -1 & -1 & 2 \\
 \end{pmatrix}$$
 But then $E + E^T$ has $0$ as an eigenvalue,
 and so is not positive definite. However, the roots of $B = - E^T E^{-1}$
-for this quiver  are $\pm 1$, which do lie on the unit circle.  
+for this quiver  are $\pm 1$, which do lie on the unit circle.
 \end{example}
 
 Further research could investigate
-what properties $E + E^T$ should have such that 
+what properties $E + E^T$ should have such that
 the roots of $\det(xI - B)$ are on the unit circle.
 
 \section{Roots of Subquivers}
