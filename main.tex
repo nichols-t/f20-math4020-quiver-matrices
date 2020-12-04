@@ -400,30 +400,35 @@ where $a_n \neq 0, a_0 \neq 0$; see \cite{syz}.
 
 \begin{proposition}
     Let $B = - E^T E^{-1}$ where $E$ is a triangular Euler
-    matrix of size $n \times n$ of an acyclic quiver. Let $P(x) = \det{xI - B}$.
-    Then $P(x)$ is self-reciprocal.
+    matrix of size $n \times n$ of an acyclic quiver. Let $P(X) = \det{XI - B}$.
+    Then $P(X)$ is self-reciprocal.
     \begin{proof}
         Consider
-        $$xI - B = xI + E^T E^{-1}$$
+        $$XI - B = XI + E^T E^{-1}$$
         so
-        $$(xI - B)E = xE + E^T$$
+        $$(XI - B)E = XE + E^T$$
         But since $\det(E) = 1$ by \ref{prop:detE1},
-        $$P(x) = \det(xI - B) = \det(xE + E^T)$$
+        $$P(X) = \det(XI - B) = \det(XE + E^T)$$
 
-        Additionally,
-        $$\det(B) = (-1)^n \det(E^T) \det(E^{-1}) = (-1)^n \neq 0$$
-        Since $\det(B) \neq 0$,
-        $x = 0$ is not a root of $P(x)$.
-
-        Let $x$ be a root of $P(x)$. Then
-        $$P(x) = \det(xE+E^T) = x^n \det \left(E + \frac{1}{x} E^T \right)$$
-        But for $x \neq 0$,
-        $$P\left(\frac{1}{x}\right) = \det\left(E +  \frac{1}{x} E^T\right)$$
-        so
-        $$P(x) = x^n P\left(\frac{1}{x}\right)$$
+        Considering $P(X)$ in the ring of Laurent polynomials $\mathbb{C}[X, X^{-1}]$
+        we can say that 
+        $$P(X) = \det(XE+E^T) = X^n \det \left(E + \frac{1}{X} E^T \right)$$
+        But if $P(X) = \det(XE + E^T)$, then the Laurent polynomial 
+        $$P\left(\frac{1}{X}\right) = \det\left(E +  \frac{1}{X} E^T\right)$$
+        and so by substitution we find that
+        $$P(X) = X^n P\left(\frac{1}{X}\right)$$
         Therefore by comparing coefficients $P$ is self-reciprocal.
     \end{proof}
 \end{proposition}
+
+\begin{remark}
+    Notice that here we are factoring out an indeterminate $X$, and we obtain
+    the equation $P(X) = X^N P\left(\frac{1}{X}\right)$. This equation is equivalent
+    to $P \in \mathbb{R}[X]$ being a self-reciprocal polynomial; see \cite{syz}.
+    But for indeterminate $X$ this means that we are considering $P(X)$ and 
+    $P\left(\frac{1}{X}\right)$ as elements of the ring of Laurent polynomials
+    $\mathbb{R}[X, X^{-1}]$. 
+\end{remark}
 
 \begin{example}
 Consider the characteristic polynomials of $B = -E^T E^{-1}$ for
@@ -524,8 +529,8 @@ $$                \begin{tikzpicture}[> = stealth, % arrow head style
         \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
         minimum size = 1mm]
 
-        \node (1) [label=left:$A_n$] {$1$}; \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$}; \node (4) [right of=3] {$n$};
+        \node (1) [label=left:$A_n$] {}; \node (2) [right of=1] {};
+        \node (3) [right of=2] {}; \node (4) [right of=3] {};
 
         \path[-] (1) edge (2); \path[-] (2) edge (3); \path[dashed] (3) edge
         (4);
@@ -541,11 +546,11 @@ $$                \begin{tikzpicture}[
         ]
 
         \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
-        minimum size = 1cm]
+        minimum size = 1mm]
 
-        \node (1) [label=left:$D_n$] {$1$}; \node (2) [right of=1] {$n-2$};
-        \node (3) [above right of=2] {$n-1$}; \node (4) [below right of=2]
-        {$n$};
+        \node (1) [label=left:$D_n$] {}; \node (2) [right of=1] {};
+        \node (3) [above right of=2] {}; \node (4) [below right of=2]
+        {};
 
         \path[dashed] (1) edge (2); \path[-] (2) edge (3); \path[-] (2) edge
         (4);
@@ -563,9 +568,9 @@ $$                \begin{tikzpicture}[
         \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
         minimum size = 0.1mm]
 
-        \node (1) [label=left:$E_6$] {$1$}; \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$};
+        \node (1) [label=left:$E_6$] {}; \node (2) [right of=1] {};
+        \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+        (5) [right of=3] {}; \node (6) [right of=5] {};
 
         \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
         \path[-] (3) edge (5); \path[-] (5) edge (6);
@@ -583,10 +588,10 @@ $$                \begin{tikzpicture}[
         \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
         minimum size = 0.1mm]
 
-        \node (1) [label=left:$E_7$] {$1$}; \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
-        [right of=6] {$7$};
+        \node (1) [label=left:$E_7$] {}; \node (2) [right of=1] {};
+        \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+        (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+        [right of=6] {};
 
         \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
         \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
@@ -604,10 +609,10 @@ $$                \begin{tikzpicture}[
         \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
         minimum size = 0.1mm]
 
-        \node (1) [label=left:$E_8$] {$1$}; \node (2) [right of=1] {$2$};
-        \node (3) [right of=2] {$3$}; \node (4) [above of=3] {$4$}; \node
-        (5) [right of=3] {$5$}; \node (6) [right of=5] {$6$}; \node (7)
-        [right of=6] {$7$}; \node (8) [right of=7] {$8$};
+        \node (1) [label=left:$E_8$] {}; \node (2) [right of=1] {};
+        \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+        (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+        [right of=6] {}; \node (8) [right of=7] {};
 
         \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
         \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
@@ -615,6 +620,303 @@ $$                \begin{tikzpicture}[
 
     \end{tikzpicture}
 $$
+
+We present the Euler matrices for each of these quivers, along with the product $B = -E^T E^{-1}$
+and $\det(XI - B)$ along with a graph of its roots below.
+
+% Magic number so this looks center justified
+\setlength\LTleft{-3.5cm}% 2.5cm into the left margin
+\setlength\LTright{0pt plus 1fill minus 1fill}%
+\tiny
+\begin{longtable}[H]{|c|c|c|c|}
+        \hline
+    \rule{0pt}{3ex}\centered{Quiver}      &
+    \centered{$E$} & $B = - E^T E^{-1}$
+    \\
+    \hline
+    % "Pendulum" example with sequence of subquivers
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 1mm]
+
+    \node (1) [label=left:$A_4$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [right of=3] {};
+
+    \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
+    (4);
+
+\end{tikzpicture}} &
+    \centered{$E = \begin{pmatrix}
+        1 & -1 & 0 & 0 \\ 0 & 1 & -1 & 0 \\ 0 & 0 & 1 & -1 \\ 0 & 0 & 0 & 1 \\
+    \end{pmatrix}$}
+    & \centered{$B = \begin{pmatrix}
+        -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 & \\
+        0 & 1 & 0 & 0 & \\ 0 & 0 & 1 & 0 & \\
+    \end{pmatrix}$} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 1mm]
+
+    \node (1) [label=left:$D_4$] {}; \node (2) [right of=1] {};
+    \node (3) [above right of=2] {}; \node (4) [below right of=2]
+    {};
+
+    \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (2) edge
+    (4);
+
+\end{tikzpicture}} &
+    \centered{$E = \begin{pmatrix}
+        1 & -1 & 0 & 0 & \\ 0 & 1 & -1 & -1 & \\
+        0 & 0 & 1 & 0 & \\ 0 & 0 & 0 & 1 & \\  
+    \end{pmatrix}$} &
+    \centered{$B \begin{pmatrix}
+        -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 & \\
+        0 & 1 & 0 & 1 & \\ 0 & 1 & 1 & 0 & \\
+    \end{pmatrix}$}  \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_6$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6);
+
+\end{tikzpicture}} &
+    \centered{$E = \begin{pmatrix}
+        1 & -1 & 0 & 0 & 0 & 0 & \\ 0 & 1 & -1 & 0 & 0 & 0 & \\
+        0 & 0 & 1 & -1 & -1 & 0 & \\ 0 & 0 & 0 & 1 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 1 & -1 & \\ 0 & 0 & 0 & 0 & 0 & 1 & \\
+    \end{pmatrix}$}
+    & \centered{$B = \begin{pmatrix}
+        -1 & -1 & -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 & 0 & 0 & \\
+        0 & 1 & 0 & 0 & 0 & 0 & \\ 0 & 0 & 1 & 0 & 1 & 1 & \\
+        0 & 0 & 1 & 1 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 1 & 0 & \\
+    \end{pmatrix}$}  \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_7$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+    [right of=6] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+
+\end{tikzpicture}} &
+    \centered{$E +\begin{pmatrix}
+        1 & -1 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 & -1 & 0 & 0 & 0 & 0 & \\
+        0 & 0 & 1 & -1 & -1 & 0 & 0 & \\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 1 & -1 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 1 & -1 & \\
+        0 & 0 & 0 & 0 & 0 & 0 & 1 & \\ 
+    \end{pmatrix}$}
+    & \centered{$B = \begin{pmatrix}
+        -1 & -1 & -1 & -1 & -1 & -1 & -1 & \\ 1 & 0 & 0 & 0 & 0 & 0 & 0 & \\
+        0 & 1 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 0 & 1 & 0 & 1 & 1 & 1 & \\
+        0 & 0 & 1 & 1 & 0 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 0 & 1 & 0 & \\
+    \end{pmatrix}$} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_8$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+    [right of=6] {}; \node (8) [right of=7] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+    \path[-] (7) edge (8);
+
+\end{tikzpicture}} &
+    \centered{$E = \begin{pmatrix}
+        1 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 & -1 & 0 & 0 & 0 & 0 & 0 & \\
+        0 & 0 & 1 & -1 & -1 & 0 & 0 & 0 & \\ 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 1 & -1 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 1 & -1 & 0 & \\
+        0 & 0 & 0 & 0 & 0 & 0 & 1 & -1 & \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & \\
+    \end{pmatrix}$} &
+    \centered{$B = \begin{pmatrix}
+        -1 & -1 & -1 & -1 & -1 & -1 & -1 & -1 & \\
+        1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & \\
+        0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & \\ 0 & 0 & 1 & 1 & 0 & 0 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & \\
+        0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & \\
+    \end{pmatrix}$}  \\
+    \hline
+    
+    \caption{Simply laced Dynkin diagrams, their Euler matrices, and product $B$}
+    \label{tab:ade1}
+\end{longtable}
+\normalsize
+
+% Magic number so this looks center justified
+\setlength\LTleft{-0.5cm}% 0.5cm into the left margin
+\setlength\LTright{0pt plus 1fill minus 1fill}%
+\tiny
+\begin{longtable}[H]{|c|c|c|c|}
+        \hline
+    \rule{0pt}{3ex}\centered{Quiver}      &
+    \centered{$\det(\lambda I - B)$} & \centered{Roots of $\det(\lambda I - B)$}
+    \\
+    \hline
+    % "Pendulum" example with sequence of subquivers
+    \centered{\begin{tikzpicture}[> = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 1mm]
+
+    \node (1) [label=left:$A_4$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [right of=3] {};
+
+    \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (3) edge
+    (4);
+
+\end{tikzpicture}} &
+    \centered{$\lambda^{4} + \lambda^{3} + \lambda^{2} + \lambda + 1$}
+    & \centered{\\\includegraphics[scale=0.3]{a4.png}} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 1mm]
+
+    \node (1) [label=left:$D_4$] {}; \node (2) [right of=1] {};
+    \node (3) [above right of=2] {}; \node (4) [below right of=2]
+    {};
+
+    \path[->] (1) edge (2); \path[->] (2) edge (3); \path[->] (2) edge
+    (4);
+
+\end{tikzpicture}} &
+\centered{$\lambda^{4} + \lambda^{3} + \lambda + 1$}
+& \centered{\\\includegraphics[scale=0.3]{d4.png}} \\
+\hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_6$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6);
+
+\end{tikzpicture}} &
+\centered{$\lambda^{6} + \lambda^{5} - \lambda^{3} + \lambda + 1$}
+& \centered{\\\includegraphics[scale=0.3]{e6.png}} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_7$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+    [right of=6] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+
+\end{tikzpicture}} &
+\centered{$\lambda^{7} + \lambda^{6} - \lambda^{4} - \lambda^{3} + \lambda + 1$}
+& \centered{\\\includegraphics[scale=0.3]{e7.png}} \\
+    \hline
+
+    \centered{\begin{tikzpicture}[
+        > = stealth, % arrow head style
+        % shorten > = 1pt, % don't touch arrow head to node
+        auto, node distance = 7mm, % distance between nodes
+        semithick % line style
+    ]
+
+    \tikzstyle{every node}=[draw = black, circle, inner sep = 1pt,
+    minimum size = 0.1mm]
+
+    \node (1) [label=left:$E_8$] {}; \node (2) [right of=1] {};
+    \node (3) [right of=2] {}; \node (4) [above of=3] {}; \node
+    (5) [right of=3] {}; \node (6) [right of=5] {}; \node (7)
+    [right of=6] {}; \node (8) [right of=7] {};
+
+    \path[-] (1) edge (2); \path[-] (2) edge (3); \path[-] (3) edge (4);
+    \path[-] (3) edge (5); \path[-] (5) edge (6); \path[-] (6) edge (7);
+    \path[-] (7) edge (8);
+
+\end{tikzpicture}} &
+\centered{$\lambda^{8} + \lambda^{7} - \lambda^{5} - \lambda^{4} - \lambda^{3} + \lambda + 1$}
+& \centered{\\\includegraphics[scale=0.3]{e8.png}} \\
+    \hline
+    
+    \caption{Simply laced Dynkin diagrams, their Euler matrices, and product $B$}
+    \label{tab:ade1}
+\end{longtable}
+\normalsize
 
 We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit
 circle.
@@ -811,7 +1113,7 @@ quiver:
     \hline
 
     \caption{"Pendulum" quiver sequence and characteristic polynomials of $B$}
-    \label{tab:ade}
+    \label{tab:increasingMeasure}
 \end{longtable}
 \normalsize
 

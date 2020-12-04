@@ -55,7 +55,7 @@ a6 = {
 
 d4 = {
     "vertices": range(4),
-    "edges": [(0,1), (1, 2), (2, 4), (2, 3)],
+    "edges": [(0,1), (1, 2), (1, 3)],
     "name": "D_4"
 }
 
@@ -320,6 +320,7 @@ def tex_char_poly(A, var="\\lambda"):
   """
 
   coeffs = [int(np.around(x, MAX_DEC)) for x in np.poly(A)]
+  print(coeffs)
   N = len(coeffs)
   latex_string = ""
 
@@ -480,7 +481,7 @@ def plot_quiver_eigenvals(quiver):
 def to_pmatrix(mat):
   """Converts some matrix into a string that can be pasted into a LaTeX document.
 
-  Returns:
+  Returns: 
     bmat (string) = a string of the form a11 & a12 & ... \\ a21 & a22 & ... \\
     for pasting into LaTeX.
   """
@@ -500,7 +501,7 @@ def get_nums(quiver,  var="\\lambda"):
   the Mahler measure of the quiver and a plot of the eigenvalues of B.
   """
 
-  # print(to_pmatrix(E(quiver)) + "\n")
+  print(to_pmatrix(E(quiver)) + "\n")
   print(to_pmatrix(B(quiver)) + "\n")
   print(tex_char_poly(B(quiver), var) + "\n")
   print(eigens_from_quiver(quiver))
