@@ -78,6 +78,7 @@
 \newtheorem{example}[theorem]{Example}
 \newtheorem{examples}[theorem]{Examples}
 \newtheorem{remark}[theorem]{Remark}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \newtheorem{computation}[theorem]{Computation}
 \newtheorem{notation}[theorem]{Notation}
 \newtheorem{definition}{Definition}
@@ -100,30 +101,71 @@
 \maketitle
 
 \section{Introduction}
+\label{sec:intro}
 
 We investigate the properties of the characteristic polynomial for a matrix $B$ defined
 on a quiver. We are interested in the roots of this characteristic polynomial
 and where they lie in the complex plane.
 
-In particular, we ask these questions:
+We begin by providing basic definitions of quivers, the Euler matrix $E$
+associated to a quiver. We then demonstrate several basic facts about quivers
+and their Euler matrices. In section \ref{sec:charpoly} we consider the form of the characteristic 
+polynomials of $B$, and show that they are self-reciprocal polynomials. 
+In section \ref{sec:posdef}, we consider how properties of $E + E^T$
+affect the roots of $\det(\lambda I - B)$.
+We show that when $E + E^T$ is positive definite, the roots of $B$ must
+lie on the unit circle in the complex plane.
+In section \ref{sec:subquiver}, we provide an example to motivate further
+exploration of the relationship between the associated polynomial of a
+quiver and the associated polynomials of its subquivers. We conjecture
+that the Mahler measure of a subquiver must be smaller than the Mahler
+measure of the whole quiver.
 
-\begin{question}
-    Which polynomials $P$ can be written as the characteristic polynomial of a
-    matrix $B$ for some Euler Matrix $E$ of a quiver?
-\end{question}
+\subsection{History}
 
-\begin{question}
-    Given a triangular matrix $E$ of some acyclic quiver,
-    is it the case that if $E + E^T$ is positive semidefinite,
-    then the characteristic polynomial of $B$ has roots on the unit circle
-    in the complex plane?
-\end{question}
+One way to look at the roots of a polynomial is to consider its \textit{Mahler measure},
+defined as
 
-\begin{question}
-    Given two quivers $Q$ and $Q'$, if $Q$ is a subgraph of $Q'$, is
-    $$M(\det(xI - B_Q)) \leq
-        M(\det(xI - B_{Q'}))$$
+$$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
+Where
+$$P(\lambda) = a_n \Pi_{k=1}^{n} (\lambda - \alpha_k)$$
+has integer coefficients; see \cite{m}.
+
+It is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
+for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
+\begin{question} Does there exist some $C > 1$ such that for every polynomial
+    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
 \end{question}
+Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $$P(\lambda) =
+\lambda^{10} + \lambda^9 -\lambda^7 - \lambda^6 -
+\lambda^5 - \lambda^4 - \lambda^3 + \lambda + 1$$ see \cite{m}.
+
+Lehmer first introduced his question in the 1933 paper \textit{Factorization of
+    Certain Cyclotomic Functions} \cite{l}. The initial paper was motivated by
+an approach for finding large primes \cite{ln}. A lemma of Kronecker implies
+that if $M(P) = 1$, then $P$ is a product of powers of $\lambda$ and cyclotomic
+polynomials; see \cite{ln}.
+
+Some partial results bounding Mahler measure have been established. Breusch
+proved in 1951 that a monic, irreducible, and nonreciprocal polynomial $P$ then
+$$M(P) \geq 1.324717\dots$$ which is the real root of $\lambda^3 - \lambda - 1$ \cite{ln}.
+Later, in 1979, Dobrowolski showed that for a monic, irreducible, and
+non-cyclotomic $P$,
+$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$;
+see \cite{ln}.
+
+Several computational searches have been carried out in addition to the above
+approaches. None have yielded a counterexample to Lehmer's question \cite{m}.
+Mossinghoff carried out a search for all polynomials of degree at most 24 with
+Mahler measure less than 1.3; while the specific algorithm used applied only to
+even degrees, he was able to find 48 such polynomials of degree 22 and 46 of
+degree 24 \cite{m}. He was additionally able to use several other algorithms to
+extend the search calculations to more degrees, and was able to find a limit
+point for measures near 1.309; see \cite{m}.
+
+For more information on the work around Lehmer's question, see the cited works
+\textit{Mahler Measure of Polynomials} \cite{ln} and \textit{Polynomials with Small Mahler
+    Measure} \cite{m}.
 
 We now introduce basic terminology that motivates our approach to the
 problem, before providing some background into the project motivations.
@@ -139,17 +181,18 @@ defined for use in the theory of quiver representations.
 \end{definition}
 
 \begin{definition} \cite{dw} A \textit{path} on a quiver $Q = (Q_0, Q_1, h, t)$
-    from $u$ to $v$ for $u, v \in Q_0$ is some sequence of edges $e_0, \dots
-        e_n$ such that for $0 \leq i \leq n$, $h(e_{i-1}) = t(e_i)$ and $t(e_0) =
+    from $u$ to $v$ for $u, v \in Q_0$ is some sequence of edges $e_0, \dots,
+        e_n$ such that for all $0 \leq i \leq n$, $h(e_{i-1}) = t(e_i)$ and $t(e_0) =
         u$, $h(e_n) = v$.
 \end{definition}
 
 \begin{examples}
     \label{ex:firstQuivers}
+    Consider the following simple quivers:
+    \newline
     \begin{enumerate}
-        \item     Consider the quiver illustrated by the following diagram:
-        $$
-            \begin{tikzpicture}[
+        \item Consider the quiver illustrated by the following diagram:
+        $$\begin{tikzpicture}[
                     > = stealth, % arrow head style
                     % shorten > = 1pt, % don't touch arrow head to node
                     auto,
@@ -212,7 +255,7 @@ repeated. However, we will be considering quivers that do not contain
 \textit{oriented cycles}:
 
 \begin{definition} \cite{dw} An \textit{oriented cycle} of a quiver $Q = (Q_0,
-        Q_1, h, t)$ is a path from some vertex $u \in Q_0$ to $u$.
+        Q_1, h, t)$ is a path from some $u \in Q_0$ to $u$.
 \end{definition}
 
 \begin{example}
@@ -238,9 +281,9 @@ of a quiver:
             \\\end{cases}$$
 \end{definition}
 
-\begin{definition} We define the \textit{Ausland-Reiter Matrix} $B$ of an acyclic
+\begin{definition} We define the \textit{Auslander-Reiter Matrix} $B$ of an acyclic
     quiver $Q$ to be $B = - E^T E^{-1}$ where $E$ is the Euler matrix of $Q$.
-    This matrix is used in the Ausland-Reiter transform in the theory of quiver
+    This matrix is used in the Auslander-Reiter transform in the theory of quiver
     representations; see \cite{dw}. However, defining that transform is beyond
     the scope of this project.
 
@@ -316,7 +359,7 @@ accordingly.
     that $E$ will be an upper triangular matrix; in particular, for this quiver $A_3$,
     $$E = \begin{pmatrix}
             1 & 0 & -1 \\ 0 & 1 & -1 \\ 0 & 0 & 1 \\
-        \end{pmatrix}
+        \end{pmatrix}.
     $$
     And this can similarly be done with a reversed ordering of the vertices
     to obtain a lower triangular $E$. It follows from the definitions that
@@ -329,105 +372,77 @@ accordingly.
 \end{example}
 
 \begin{proposition}
-    \label{prop:detE1}
     Let $E$ be an Euler matrix of an acyclic quiver written in triangular form.
-    Then $\det(E) = 1$.
-    \begin{proof}
+    Then (a) $\det(E) = 1$, and (b) $\det(\lambda I  - B) = \det(\lambda E + E^T)$
+    \begin{proof}{(a)}
+        \label{prop:detE1}
         Since $E$ is defined on an acyclic quiver, there are no edges $(i, i)$
         for any vertex $i$. Therefore $E_{i,i} = \delta_{i,i} - 0 = 1$. Since $E$
         is triangular by assumption and has diagonal entries 1, $\det(E) = 1$.
     \end{proof}
+    \begin{proof}{(b)}
+        \label{prop:eet}
+        Consider
+        \begin{align*}
+            \det((\lambda I - B)E) &= \det(\lambda I - B)\det(E)
+            \\&= \det((\lambda + E^T E^{-1})E)
+            \\&= \det(\lambda E + E^T)
+        \end{align*}
+        Since by (a), $\det(E) = 1$, we see that
+        $$\det((\lambda I - B)E) = \det(\lambda I - B) = \det(\lambda E + E^T)$$
+    \end{proof}
 \end{proposition}
 
-\subsection{History}
-
-One way to look at the roots of a polynomial is to consider its \textit{Mahler measure},
-defined as
-
-$$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
-Where
-$$P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$$
-has integer coefficients; see \cite{m}.
-
-It is not known if there is some $P(x)$ with $M(P) = 1 + \epsilon$
-for $\epsilon > 0$. This question is referred to as \textit{Lehmer's Conjecture} or \textit{Lehmer's Question} \cite{m}:
-\begin{question} Does there exist some $C > 1$ such that for every polynomial
-    $P(x) \in \mathbb{Z}[x]$, $M(P) = 1$ or $M(P) > C$?
-\end{question}
-Lehmer conjectured that $C \approx 1.1762808$, given by $M(P)$ for $P(x) =
-    x^{10} + x^9 - x^7 - x^6 - x^5 - x^4 - x^3 + x + 1$; see \cite{m}.
-
-Lehmer first introduced his question in the 1933 paper \textit{Factorization of
-    Certain Cyclotomic Functions} \cite{l}. The initial paper was motivated by
-an approach for finding large primes \cite{ln}. A lemma of Kronecker implies
-that if $M(P) = 1$, then $P$ is a product of powers of $x$ and cyclotomic
-polynomials; see \cite{ln}.
-
-Some partial results bounding Mahler measure have been established. Breusch
-proved in 1951 that a monic, irreducible, and nonreciprocal polynomial $P$ then
-$$M(P) \geq 1.324717\dots$$ which is the real root of $x^3 - x - 1$ \cite{ln}.
-Later, in 1979, Dobrowolski showed that for a monic, irreducible, and
-non-cyclotomic $P$,
-$$M(P) > 1 + c \left(\frac{\log \log d}{\log d}\right)^3$$ for some constant $c$;
-see \cite{ln}.
-
-Several computational searches have been carried out in addition to the above
-approaches. None have yielded a counterexample to Lehmer's question \cite{m}.
-Mossinghoff carried out a search for all polynomials of degree at most 24 with
-Mahler measure less than 1.3; while the specific algorithm used applied only to
-even degrees, he was able to find 48 such polynomials of degree 22 and 46 of
-degree 24 \cite{m}. He was additionally able to use several other algorithms to
-extend the search calculations to more degrees, and was able to find a limit
-point for measures near 1.309; see \cite{m}.
-
-For more information on the work around Lehmer's question, see the cited works
-\textit{Mahler Measure of Polynomials} and \textit{Polynomials with Small Mahler
-    Measure}.
-
 \section{The Characteristic Polynomial of $B = -E^T E^{-1}$}
+\label{sec:charpoly}
 
 For this section, we assume that $E$ is the Euler matrix of some acyclic quiver,
 with the vertices of that quiver numbered such that $E$ is upper or lower
-triangular. We consider
-the form of the characteristic polynomial of $B = - E^T E^{-1}$.
+triangular. We consider the form of the characteristic polynomial
+of $B = - E^T E^{-1}$, and ask the following question:
 
-First, we define a \textit{self-reciprocal polynomial} to be a polynomial
-$$P(x) = a_n x^n + a_{n -1} x^{n - 1} \dots + a_i x^i + \dots + a_1 x + a_0$$
-such that
-$$P(x) = a_0 x^n + a_{1} x^{n - 1} + \dots + a_{n - i} x^{i}
-+ \dots + a_{n - 1} x + a_n$$
+\begin{question}
+    Which polynomials $P$ can be written as $P(\lambda) = \det(\lambda I - B)$?
+\end{question}
+
+Via inspection of examples, we observed that the coefficients of
+$\det(\lambda I - B)$ appeared to be palindromic; that is, reversing 
+the order of the coefficients yields the same polynomial. We formalize
+this with the notion of a \textit{self-reciprocal polynomial},
+which is some polynomial $P(\lambda)$ such that
+\begin{align*}
+    P(\lambda) &= a_n \lambda^n + a_{n -1} \lambda^{n - 1} \dots
+    + a_i \lambda^i + \dots + a_1 \lambda + a_0
+       \\&= a_0 \lambda^n + a_{1} \lambda^{n - 1} + \dots
+       + a_{n - i} \lambda^{i} + \dots + a_{n - 1} \lambda + a_n
+\end{align*}
 where $a_n \neq 0, a_0 \neq 0$; see \cite{syz}.
 
 \begin{proposition}
-    Let $B = - E^T E^{-1}$ where $E$ is a triangular Euler
-    matrix of size $n \times n$ of an acyclic quiver. Let $P(X) = \det{XI - B}$.
-    Then $P(X)$ is self-reciprocal.
+    Let $B = - E^T E^{-1}$ where $E$ is an $n\times n$ triangular Euler
+    matrix of an acyclic quiver. Then $\det(\lambda I - B)$ is self-reciprocal.
     \begin{proof}
-        Consider
-        $$XI - B = XI + E^T E^{-1}$$
-        so
-        $$(XI - B)E = XE + E^T$$
-        But since $\det(E) = 1$ by \ref{prop:detE1},
-        $$P(X) = \det(XI - B) = \det(XE + E^T)$$
-
-        Considering $P(X)$ in the ring of Laurent polynomials $\mathbb{C}[X, X^{-1}]$
+        Let $P(\lambda) = \det(\lambda I - B)$. Then by proposition
+        \ref{prop:eet},
+        $$P(\lambda) = \det(\lambda E + E^T) = \det(E + \lambda E^T)$$
+        Considering $P(\lambda)$ in the ring of Laurent polynomials $\mathbb{R}[\lambda, \lambda^{-1}]$
         we can say that 
-        $$P(X) = \det(XE+E^T) = X^n \det \left(E + \frac{1}{X} E^T \right)$$
-        But if $P(X) = \det(XE + E^T)$, then the Laurent polynomial 
-        $$P\left(\frac{1}{X}\right) = \det\left(E +  \frac{1}{X} E^T\right)$$
-        and so by substitution we find that
-        $$P(X) = X^n P\left(\frac{1}{X}\right)$$
-        Therefore by comparing coefficients $P$ is self-reciprocal.
+        $$P(\lambda) = \det(\lambda E+E^T)
+        = \lambda ^n \det \left(E + \frac{1}{\lambda} E^T \right)
+        = \lambda^n P\left(\frac{1}{\lambda}\right)$$
+        Therefore by comparing coefficients we find that $P$ is self-reciprocal.
     \end{proof}
 \end{proposition}
 
 \begin{remark}
-    Notice that here we are factoring out an indeterminate $X$, and we obtain
-    the equation $P(X) = X^N P\left(\frac{1}{X}\right)$. This equation is equivalent
-    to $P \in \mathbb{R}[X]$ being a self-reciprocal polynomial; see \cite{syz}.
-    But for indeterminate $X$ this means that we are considering $P(X)$ and 
-    $P\left(\frac{1}{X}\right)$ as elements of the ring of Laurent polynomials
-    $\mathbb{R}[X, X^{-1}]$. 
+    Notice that here we are factoring out an indeterminate $\lambda$, and we obtain
+    the equation $P(\lambda) = \lambda^N P\left(\frac{1}{\lambda}\right)$. This equation is equivalent
+    to $P \in \mathbb{R}[\lambda]$ being a self-reciprocal polynomial; see \cite{syz}.
+    But for indeterminate $\lambda$ this means that we are considering $P(\lambda)$ and 
+    $P\left(\frac{1}{\lambda}\right)$ as elements of the ring of Laurent polynomials
+    $\mathbb{R}[\lambda, \lambda^{-1}]$, rather than the usual $\mathbb{R}[\lambda]$. In the
+    literature that we have encountered, this seems to be left implicit when
+    the equality $P(\lambda) = \lambda^n P\left(\frac{1}{\lambda}\right)$ is written.
 \end{remark}
 
 \begin{example}
@@ -437,7 +452,7 @@ the quivers below.
 \begin{longtable}[H]{|c|c|}
     \hline
     \rule{0pt}{3ex}\centered{Quiver}      &
-    \centered{$\det(xI - B)$}
+    \centered{$\det(\lambda I - B)$}
     \\
     \hline
     % "Pendulum" example with sequence of subquivers
@@ -500,13 +515,15 @@ the quivers below.
     \label{ex:charpoly}
 \end{longtable}
 \normalsize
-
-Notice that the coefficients of each polynomial are palindromic.
+\noindent
+Notice that the coefficients of each polynomial are palindromic, as proven above.
+Further research could find more specific restrictions on $\det(\lambda I - B)$;
+perhaps the coefficients must have other properties in addition to being
+palindromic.
 \end{example}
 
-Further research could find more specific restrictions on $\det(xI - B)$.
-
-\section{Roots of $\det(xI - B)$ when $E + E^T$ is positive definite}
+\section{Eigenvalues of $B$ when $E + E^T$ is positive definite}
+\label{sec:posdef}
 
 Let $B = - E^T E^{-1}$ where $E$ is the Euler matrix of some acyclic quiver written
 in triangular form. For certain quivers, representation theory can tell us
@@ -514,10 +531,19 @@ about the properties of $B$ and and $E$; in particular, the quivers known as
 the simply laced Dynkin diagrams are well-studied, as they have connections
 to many other topics.
 
-The \textit{simply laced Dynkin diagrams} are $A_n, D_n, E_6, E_7, $ and
-$E_8$; see \cite{dw}. Dynkin diagrams are typically drawn as undirected graphs;
-if we speak of a quiver as being related to a Dynkin diagram, we mean the
-quiver drawn also as an undirected graph. We present the simply laced
+We consider the following question:
+
+\begin{question}
+    Given a triangular matrix $E$ of some acyclic quiver,
+    is it the case that if $E + E^T$ is positive definite,
+    then the eigenvalues of $B$ are on the unit circle
+    in the complex plane?
+\end{question}
+
+The property of $E+E^T$ being positive definite corresponds to the associated
+quiver having an underlying graph that is one of the 
+\textit{simply laced Dynkin diagrams}, denoted $A_n, D_n, E_6, E_7, $ and
+$E_8$; see \cite{dw}. We present the simply laced
 Dynkin diagrams below:
 
 $$                \begin{tikzpicture}[> = stealth, % arrow head style
@@ -622,7 +648,7 @@ $$                \begin{tikzpicture}[
 $$
 
 We present the Euler matrices for each of these quivers, along with the product $B = -E^T E^{-1}$
-and $\det(XI - B)$ along with a graph of its roots below.
+and $\det(\lambda I - B)$ along with a graph of its roots below.
 
 % Magic number so this looks center justified
 \setlength\LTleft{-3.5cm}% 2.5cm into the left margin
@@ -821,6 +847,7 @@ and $\det(XI - B)$ along with a graph of its roots below.
     \centered{$\lambda^{4} + \lambda^{3} + \lambda^{2} + \lambda + 1$}
     & \centered{\\\includegraphics[scale=0.3]{a4.png}} \\
     \hline
+    \endfirsthead
 
     \centered{\begin{tikzpicture}[
         > = stealth, % arrow head style
@@ -913,76 +940,59 @@ and $\det(XI - B)$ along with a graph of its roots below.
 & \centered{\\\includegraphics[scale=0.3]{e8.png}} \\
     \hline
     
-    \caption{Simply laced Dynkin diagrams, their Euler matrices, and product $B$}
-    \label{tab:ade1}
+    \caption{Simply laced Dynkin diagrams, $\det(\lambda I - B)$, and graph of its roots}
+    \label{tab:ade2}
 \end{longtable}
 \normalsize
 
-We know that the roots of $\det(xI - B)$ for these diagrams are all on the unit
+We observe that the roots of $\det(\lambda I - B)$ for these diagrams are all on the unit
 circle.
-We also know that $E + E^T$ is positive definite when the quiver used to define $E$
-is a simply laced Dynkin diagram \cite{dp}. These two facts are not obviously related, but we
-show below that the roots of $\det(xI - B)$ must lie on the unit circle if $E + E^T$
-is positive definite.
+We also observe that $E + E^T$ is positive definite when the quiver used to define $E$
+is a simply laced Dynkin diagram \cite{dp}. The next result shows that these
+two facts are related.
 
 \begin{proposition} Suppose an acyclic quiver has a
     triangular Euler matrix $E$ and that $E + E^T$ is positive definite.
     Let $B = -E^T E^{-1}$.
-    Then the roots of $\det(xI - B)$ lie on the unit circle in the
+    Then the roots of $\det(\lambda I - B)$ lie on the unit circle in the
     complex plane.
     \begin{proof}
-        By assumption, $E + E^T$ is positive
-        definite. Consider some $\textbf{v} \in \ker(xE + E^T)$
-        where $x$ is a solution of $\det(xE+E^T) = 0$.
-        Then $(xE + E^T) \textbf{v} = 0$, so
-        $$x E \textbf{v} + E^T \textbf{v} = 0$$
-        and therefore $x E \textbf{v} = - E^T \textbf{v}$.
-
-        Furthermore, by taking the conjugate transpose of the above equation we obtain
-        $$\textbf{v}^* (xE + E^T)^* = 0$$
-        but since $E$ is triangular with integer entries,
-        $$(xE + E^T)^* = (E + \conj{x} E^T)$$
-        and then
-        $$\textbf{v}^*(E + xE^T) = 0$$
-        so
-        $$\textbf{v}^* E \textbf{v} = - \conj{x} \textbf{v}^* E^T \textbf{v}$$
-
-        But since $x E \textbf{v} = - E^T \textbf{v}$, we can see that
-        \begin{align*}
-            \textbf{v}^* E \textbf{v} = (- \conj{x})(-x \textbf{v}^* E \textbf{v})
-            = |x|^2 \textbf{v}^* E \textbf{v}
-        \end{align*}
-
-
-        Suppose for the sake of contradiction that $\textbf{v}^* E \textbf{v} = 0$.
-        Then
-        $$(\textbf{v} E \textbf{v})^* = 0^*$$
-        $$\textbf{v}^* (\textbf{v}^* E)^* = 0$$
-        $$\textbf{v}^* E^T \textbf{v} = 0$$
-
-        But $E + E^T$ is positive definite, so
-        $$\textbf{v}^* (E + E^T) \textbf{v} > 0$$
-        $$\textbf{v}^* E \textbf{v} + \textbf{v}^* E^T \textbf{v} > 0$$
-        $$0 > 0$$
-
-        which is a contradiction. So we obtain that
-        $\textbf{v}^* E \textbf{v} \neq 0$.
-
-        Therefore, since $\textbf{v}^* E \textbf{v} \neq 0$ and
-        $$\textbf{v}^* E \textbf{v} = |x|^2 \textbf{v}^* E \textbf{v}$$
-        we see that
-        $$|x|^2 = 1$$
-        so $x$ must lie on the unit circle in the complex plane; and since
-        $$\det((xI - B)(E)) = \det((xE + E^T) =
-            \det(xI - B)\det(E) = \det(xI - B)$$
-        as $\det(E) = 1$ by proposition \ref{prop:detE1},
-        we can see that the characteristic polynomial
-        of $B = -E^T E^{-1}$ must have roots on the unit circle
-        in the complex plane if $E + E^T$ is positive definite.
+        Let $x$ be an eigenvalue of $B$. Then by proposition \ref{prop:eet},
+        $x$ is a root of $\det(\lambda E + E^T)$. Since $\det(xE + E^T) = 0$,
+        $\ker(xE + E^T) \neq \{0\}$.
+        Choose some $\textbf{v} \in \ker(xE + E^T)$.
+        Then $0 = (xE + E^T)\textbf{v} = xE\textbf{v} + E^T\textbf{v}$
+        and therefore 
+        \begin{equation} \label{eq:eet1}
+            xE\textbf{v} = - E^T\textbf{v}
+        \end{equation}
+        Taking the conjugate transpose of both sides, we see that
+        \begin{equation} \label{eq:eet2}
+            \begin{split}
+                \textbf{v}^* E &= - \conj{x} \textbf{v}^* E^T\text{, so}\\
+                \textbf{v}^* E \textbf{v} &= - \conj{x} \textbf{v}^* E^T \textbf{v}
+                \text{ by \eqref{eq:eet1}}\\
+                &= \conj{x} \textbf{v}^*(x E \textbf{v})\\
+                &= |x| \textbf{v}^* E \textbf{v}
+            \end{split}
+        \end{equation}
+        Assume for the sake of contradiction that
+        \begin{equation}\label{eq:eet3}
+            \textbf{v}^* E \textbf{v} = 0
+        \end{equation}
+        By taking the conjugate transpose
+        we find that
+        \begin{equation}\label{eq:eet4}
+            \textbf{v}^* E^T \textbf{v} = 0
+        \end{equation}
+        Adding together \eqref{eq:eet3} and \eqref{eq:eet4}, we find
+        that $\textbf{v}^*(E + E^T)\textbf{v} = 0$; however, this
+        contradicts that $E + E^T$ is positive definite. Then, by \eqref{eq:eet2}
+        we obtain $|x|^2 = 1$, so we conclude that $|x| = 1$.
     \end{proof}
 \end{proposition}
 
-The converse is not necessarily true; consider the following example:
+The converse is not true; consider the following example:
 
 \begin{example}
     \label{ex:nonPDEplusET}
@@ -1010,15 +1020,15 @@ and so $$E + E^T = \begin{pmatrix}
     2 & -1 & -1 \\ -1 & 2 & -1 \\ -1 & -1 & 2 \\
 \end{pmatrix}$$
 But then $E + E^T$ has $0$ as an eigenvalue,
-and so is not positive definite. However, the roots of $B = - E^T E^{-1}$
+and so it is not positive definite. However, the roots of $B = - E^T E^{-1}$
 for this quiver  are $\pm 1$, which do lie on the unit circle.
-\end{example}
-
 Further research could investigate
 what properties $E + E^T$ should have such that
 the roots of $\det(xI - B)$ are on the unit circle.
+\end{example}
 
 \section{Roots of Subquivers}
+\label{sec:subquiver}
 
 In this section, we again consider $B = - E^T E^{-1}$ for some
 triangular Euler matrix $E$ for an acyclic quiver. Consider the following
@@ -1026,10 +1036,11 @@ example, created by repeateddly adding a single vertex and edge to a small
 quiver:
 
 \tiny
+\setlength\LTleft{0cm}% 2.5cm into the left margin
 \begin{longtable}[H]{|c|c|c|c|}
     \hline
     \rule{0pt}{3ex}\centered{Quiver}      &
-    \centered{$\det(xI - B)$}             & $M(\det(xI - B))$
+    \centered{$\det(\lambda I - B)$}             & $M(\det(\lambda I - B))$
     \\
     \hline
     % "Pendulum" example with sequence of subquivers
@@ -1117,56 +1128,60 @@ quiver:
 \end{longtable}
 \normalsize
 
-Here, $M(\det(xI - B))$ refers to the \textit{Mahler measure} \cite{m} of the
+Here, $M(\det(\lambda I - B))$ refers to the \textit{Mahler measure} \cite{m} of the
 characteristic polynomial of $B$.
-The Mahler measure of a polynomial $P \in \mathbb{Z}[x]$
-with integer coefficients
-where $$P(x) = a_n \Pi_{k=1}^{n} (x - \alpha_k)$$
-is defined as
-$$M(P) = |a_d|\Pi_{k=1}^{n}\max\{1, |\alpha_k|\}$$
-
 Notice that the Mahler measure of each quiver is increasing as more edges and vertices
-are added. Future work could show that the addition of any edges or
-vertices to a quiver cannot lead to a smaller
-Mahler measure for $\det(xI - B)$ than the original quiver.
+are added. We conjecture that this must be the case:
+
+\begin{conjecture}
+    Let $Q' \subset Q$ be acyclic quivers with Euler matrices $E_{Q'}$ and
+    $E_Q$, respectively. Let $B_{Q'} = -E_{Q'}^T E_{Q'}^{-1}$ and 
+    $B_Q = - E_Q^T E_Q^{-1}$. Then $$M(\det(\lambda I - B_{Q'}) \leq
+    M(\det(\lambda I - B_{Q})$$
+\end{conjecture}
+
+Future work could prove or disprove this conjecture.
 
 \appendix
 \section{Source Code}
+\label{appsec:source}
 
 The source code used to generate examples, graphs, and calculations can
 be found at
 \textcolor{blue}{\url{https://github.com/nichols-t/f20-math4020-quiver-matrices}}.
+\pagebreak
 \begin{thebibliography}{99}
-
-    \bibitem{dp} Derksen, H., {\em Private Communication} (2020).
-
-    \bibitem{op} Veliche, O., {\em Private Communication} (2020).
-
-    \bibitem{dw} Derksen, H., Weyman, J., {\em An Introduction to Quiver
-            Representations\/}, American Mathematical Society, Providence,
-    Graduate Studies in Mathematics. {\bf 52} (2017), 1-33.
-
-    \bibitem{m} Mossinghoff, M. J. {\em Polynomials with Small Mahler
-            Measure\/}, Mathematics of Computation. {\bf 67} (1998), 1697-1705.
-
-    \bibitem{l} Lehmer, D. H. {\em Factorization of Certain Cyclotomic
-            Functions\/}, Annals of Mathematics. {\bf 34} (1933), 461-479.
-
-    \bibitem{ln} Lalin, Matilde N. {\em Mahler Measure of Polynomials\/}
-    Postdoctoral Seminar, Mathematical Sciences Research Institute. (2006), 1-2.
-
+    
     \bibitem{b} Bernstein, Dennis S. {\em Matrix Mathematics \/},
     Princeton University Press. (2005), 44.
 
-    \bibitem{syz} Sun, H., Wang, Y., Zhang, H. X., {\em Polynomials with
-            Palindromic and Unimodal Coefficients}, Acta Mathematica Sinica, English
-    Series. {\bf 31} (2015), 565-575.
+    \bibitem{dp} Derksen, H., {\em Private Communication} (2020).
+    
+    \bibitem{dw} Derksen, H., Weyman, J., {\em An Introduction to Quiver
+    Representations\/}, American Mathematical Society, Providence,
+    Graduate Studies in Mathematics. {\bf 52} (2017), 1-33.
+    
+    \bibitem{ln} Lalin, Matilde N. {\em Mahler Measure of Polynomials\/}
+    Postdoctoral Seminar, Mathematical Sciences Research Institute. (2006), 1-2.
+    
+    \bibitem{l} Lehmer, D. H. {\em Factorization of Certain Cyclotomic
+    Functions\/}, Annals of Mathematics. {\bf 34} (1933), 461-479.
+    
+    \bibitem{m} Mossinghoff, M. J. {\em Polynomials with Small Mahler\
+    Measure\/}, Mathematics of Computation. {\bf 67} (1998), 1697-1705.
+            
+    \bibitem{sw} Sedgewick, R., Wayne, K., {\em Algorithms: Fourth Edition,
+    Part II\/}, Addison-Wesley, Boston. (2014), 574-578.
 
     \bibitem{s} Stankov, Dragan, {\em The number of unimodular roots of some
-            reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
+    reciprocal polynomials}, Reports. Mathematics, {\bf 358} (2020), 159-168.
+            
+    \bibitem{syz} Sun, H., Wang, Y., Zhang, H. X., {\em Polynomials with
+    Palindromic and Unimodal Coefficients}, Acta Mathematica Sinica,
+    English Series. {\bf 31} (2015), 565-575.
 
-    \bibitem{sw} Sedgewick, R., Wayne, K., {\em Algorithms: Fourth Edition,
-            Part II\/}, Addison-Wesley, Boston. (2014), 574-578.
+    \bibitem{op} Veliche, O., {\em Private Communication} (2020).
+
 
 \end{thebibliography}
 
